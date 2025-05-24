@@ -17,6 +17,8 @@ async function parsePath(template_path) {
             style_json = data; 
     }).catch(error => console.error('Error:', error)); // load the style json
 
+    console.log(style_json);
+
     await fetch(`${template_path}/${style_json.stylesheet}`)
         .then(response => response.text())
         .then(data => {
