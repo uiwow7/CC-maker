@@ -52,10 +52,10 @@
 	</head>
 	<body>
 		<div id="templates" class="templates-container">
-			<div class="template-container" onclick="window.location.href='/upload.html'">
+			<div class="template-container" onclick="window.location.href='upload'">
 				<span class="template-name">Custom Template</span>
 				<img src="/img/plus.png" class="template-preview">
-				<span class="template-desc">Upload your own custom template! <a href="tutorial.html">Tutorial</a></span>
+				<span class="template-desc">Upload your own custom template! <a href="tutorial">Tutorial</a></span>
 			</div>
 		</div>
 		</div>
@@ -94,7 +94,7 @@
 				preview.className = "template-preview";
 				template_container.className = "template-container";
 				template_container.onclick = function() {
-					window.location.href = "template.html?template=" + template_name;
+					window.location.href = "template?template=" + template_name;
 				}
 				template_container.appendChild(name);
 				template_container.appendChild(preview);

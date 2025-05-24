@@ -44,7 +44,7 @@
 				let gh_username = url_sections[3];
 				let template = url_sections[7];
 				console.log(repo, gh_username, template)
-				window.location.href = `custom.html?path=https://raw.githubusercontent.com/${gh_username}/${repo}/refs/heads/main/${template}/`;
+				window.location.href = `custom?path=https://raw.githubusercontent.com/${gh_username}/${repo}/refs/heads/main/${template}/`;
 			}
         </script>
 	</body>
