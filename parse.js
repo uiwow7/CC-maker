@@ -1,7 +1,7 @@
 // var firstU = true;
 
 function parseStyle(style_name) {
-    parsePath(`/templates/${style_name}.template/`);
+    parsePath(`templates/${style_name}.template/`);
 }
 
 async function parsePath(template_path) {
