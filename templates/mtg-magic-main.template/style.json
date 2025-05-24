@@ -1,0 +1,127 @@
+{
+    "name": "Magic",
+    "desc": "Custom card template for MTG",
+    "preview-card": "mtg-preview.png",
+    "stylesheet": "style.css",
+    "types": {
+        "M15 Normal": {
+            "fields": [
+                "color",
+                "name",
+                "card-type",
+                "text",
+                "mana",
+                "land",
+                "pt",
+                "pt-overlay"
+            ],
+            "url": "/m15/cards/normal/{color}<if .land = true then l end>card.jpg"
+        }
+    },
+    "fields": {
+        "color": {
+            "type": "infix",
+            "view": "dropdown",
+            "loc": "fields",
+            "label": true,
+            "options": [
+                "white",
+                "blue",
+                "black",
+                "red",
+                "green",
+                "colorless",
+                "gold",
+                "artifact"
+            ],
+            "default": "white"
+        },
+        "name": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "card-name",
+            "default": "Card Name",
+            "font": {
+                "family": "beleren",
+                "size": "25"
+            },
+            "position": "28;34;25;340"
+        },
+        "card-type": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "card-type",
+            "default": "Card Type",
+            "font": {
+                "family": "beleren",
+                "size": "20"
+            },
+            "position": "320;34;25;340"
+        },
+        "text": {
+            "type": "card",
+            "view": "card-sym",
+            "loc": "card-fields",
+            "class": "card-text",
+            "symbol-font": "/mana-fonts/small",
+            "keep-text": true,
+            "default": "Write your rules text here...",
+            "font": {
+                "family": "mtg-text",
+                "size": "20"
+            },
+            "position": "355;34;160;340"
+        },
+        "mana": {
+            "type": "card",
+            "view": "card-sym",
+            "loc": "card-fields",
+            "class": "mana",
+            "symbol-font": "/mana-fonts/large",
+            "default": "WUBRG",
+            "style": {
+                "display": "<if .land = true then none end>"
+            }
+        },
+        "land": {
+            "type": "infix",
+            "view": "checkbox",
+            "loc": "fields",
+            "class": "land",
+            "default": false
+        },
+        "pt": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "pt",
+            "style": {
+                "display": "<if ,card-type $ creature then block else none end>"
+            },
+            "default": "P/T"
+        },
+        "pt-overlay": {
+            "type": "overlay",
+            "view": "none",
+            "loc": "card-fields",
+            "class": "pt",
+            "style": {
+                "display": "<if ,card-type $ creature then block else none end>"
+            },
+            "img": {
+                "loc": "card-fields",
+                "class": "pt-overlay",
+                "style": {
+                    "display": "<if ,card-type $ creature then block else none end>"
+                }
+            },
+            "url": "/m15/pts/{color}pt.png",
+            "default": ""
+        }
+    },
+    "art": {
+        "class": "art-{type}"
+    }
+}

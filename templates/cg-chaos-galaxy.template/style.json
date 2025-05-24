@@ -1,0 +1,198 @@
+{
+    "name": "Chaos Galaxy",
+    "desc": "Custom card template for Chaos Galaxy",
+    "preview-card": "cg-preview.jpg",
+    "stylesheet": "style.css",
+    "types": {
+        "Combiner": {
+            "fields": [
+                "name",
+                "other-half",
+                "planet",
+                "text",
+                "power",
+                "health",
+                "side",
+                "ridrare"
+            ],
+            "url": "/combiners/{planet}{side}.jpg"
+        },
+        "Creature": {
+            "fields": [
+                "name",
+                "planet",
+                "text",
+                "power",
+                "health",
+                "ridrare"
+            ],
+            "url": "/creatures/{planet}card.jpg"
+        },
+        "Resource": {
+            "fields": [
+                "name",
+                "text",
+                "ridrare"
+            ],
+            "url": "/other-cards/resource.jpg"
+        },
+        "Attachment": {
+            "fields": [
+                "name",
+                "text",
+                "ridrare"
+            ],
+            "url": "/other-cards/attachment.jpg"
+        },
+        "Planet": {
+            "fields": [
+                "name",
+                "text",
+                "ridrare"
+            ],
+            "url": "/other-cards/planet.jpg"
+        },
+        "Permanent-Resource": {
+            "fields": [
+                "name",
+                "text",
+                "ridrare"
+            ],
+            "url": "/other-cards/permanent resource.jpg"
+        },
+        "Activator": {
+            "fields": [
+                "name",
+                "text",
+                "condition",
+                "lines",
+                "ridrare"
+            ],
+            "url": "/activators/acti-{lines}.jpg"
+        }
+    },
+    "fields": {
+        "ridrare": {
+            "type": "overlay",
+            "view": "checkbox",
+            "loc": "fields",
+            "imgloc": "card-fields",
+            "label": true,
+            "url": "/ridrare/{type}.png",
+            "default": false,
+            "imgclass": "card-img",
+            "override": {
+                "Activator": {
+                    "type": "overlay",
+                    "view": "checkbox",
+                    "loc": "fields",
+                    "imgloc": "card-fields",
+                    "label": true,
+                    "url": "/ridrare/acti-{lines}.png",
+                    "imgclass": "card-img",
+                    "default": false
+                }
+            }
+        },
+        "name": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus-light card-title",
+            "default": "Card Name"
+        },
+        "other-half": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus-light combiner-plus-text",
+            "default": "+ Other Half"
+        },
+        "planet": {
+            "type": "infix",
+            "view": "dropdown",
+            "loc": "fields",
+            "label": true,
+            "options": [
+                "baro",
+                "gaios",
+                "palicium",
+                "sindell",
+                "teklar",
+                "rokah",
+                "sindian",
+                "sheos",
+                "no-planet"
+            ],
+            "default": "baro"
+        },
+        "text": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus-light card-text-{type}",
+            "default": "Card text goes here",
+            "override": {
+                "Activator": {
+                    "type": "card",
+                    "view": "card-text",
+                    "loc": "card-fields",
+                    "class": "shaimus-light card-text-acti-{lines}-lines",
+                    "default": "Card text goes here"
+                }
+            }
+        },
+        "power": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus power power-health",
+            "default": "999"
+        },
+        "health": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus health power-health",
+            "default": "999"
+        },
+        "side": {
+            "type": "infix",
+            "view": "dropdown",
+            "loc": "fields",
+            "label": true,
+            "options": [
+                "left",
+                "right"
+            ],
+            "default": "left"
+        },
+        "condition": {
+            "type": "card",
+            "view": "card-text",
+            "loc": "card-fields",
+            "class": "shaimus acti-text-{lines}-lines",
+            "default": "Your condition..."
+        },
+        "lines": {
+            "type": "infix",
+            "view": "dropdown",
+            "loc": "fields",
+            "label": true,
+            "options": [
+                "1",
+                "2",
+                "3"
+            ],
+            "default": "1"
+        }
+    },
+    "art": {
+        "class": "art-{type}",
+        "override": {
+            "Activator": {
+                "class": "art-acti-{lines}-lines"
+            }
+        }
+    }
+}

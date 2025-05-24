@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Custom Template Uploader</title>
+		<!-- <link rel="stylesheet" href="/style.css"> -->
+		<!-- <link rel="icon" href="/img/icon.png" type="image/x-icon"> -->
+		<style>
+			input {
+                padding: 5px;
+                border-radius: 2px;
+                border: solid 2px #aaa;
+            }
+            .url-input {
+                width: 50%;
+            }
+			.submit-btn {
+				padding: 5px;
+				color: white;
+				background-color: green;
+				border-radius: 3px;
+				font-size: 16px;
+				border: none;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="inputs">
+			<input class="url-input" id="url-input" placeholder="Enter Github URL">
+			<button onclick="submit()" class="submit-btn">Submit!</button>
+		</div>
+		<script src="parse.js"></script>
+		<script> // https://raw.githubusercontent.com/uiwow7/CC-templates/refs/heads/main/ygo-yugioh.template/ 
+				 // https://raw.githubusercontent.com/uiwow7/refs/head/main/CC-templates/ygo-yugioh.template/
+				// https://github.com/uiwow7/CC-templates/tree/main/ygo-yugioh.template
+				// 0....1.2..........3.......4...........5.....6....7
+				
+			function submit() {
+				let url_sections = document.getElementById('url-input').value.split("/");
+				let repo = url_sections[4];
+				let gh_username = url_sections[3];
+				let template = url_sections[7];
+				console.log(repo, gh_username, template)
+				window.location.href = `custom.html?path=https://raw.githubusercontent.com/${gh_username}/${repo}/refs/heads/main/${template}/`;
+			}
+        </script>
+	</body>
+</html>

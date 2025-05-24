@@ -1,0 +1,314 @@
+p {
+    color: #FFFF;
+}
+html {
+    height: 100%;
+    width: 100%;
+    background-image: url('/templates/cg-chaos-galaxy.template/bgdark.jpg');
+      overflow-y: hidden;
+    background-size: 100%;
+}
+
+@font-face {
+        font-family: 'Shaimus'; /*a name to be used later*/
+        src: url('/templates/cg-chaos-galaxy.template/fonts/Shaimus-Bold.otf'); /*URL to font*/
+}
+@font-face {
+        font-family: 'Shaimus-Light'; /*a name to be used later*/
+        src: url('/templates/cg-chaos-galaxy.template/fonts/ShaimusCleanLight.otf'); /*URL to font*/
+}
+
+.shaimus {
+    font-family: 'Shaimus';
+    color:#000000;
+}
+.shaimus-light {
+    font-family: 'Shaimus-Light';
+    letter-spacing: 0px;
+    transform: scaleX(0.8);
+    transform-origin: left;
+    color:#000000;
+}
+
+.card-title {
+    position: absolute;
+    top: 11px;
+    font-size: 27px;
+    left: 49px;
+}
+.combiner-plus-text {
+    position: absolute;
+    top: 110px;
+    font-size: 23px;
+    left: 49px;
+}
+.power-health {
+    position: absolute;
+     top: 58px;
+    font-size: 28px;
+      text-align: center;
+    width: 48px;
+}
+
+.card-text-creature {
+    position:absolute;
+    top: 456.5px;
+    left: 48px;
+    font-size: 15px;
+    line-height: 14px;
+    width: 415px;
+    height: 58px;
+}
+.card-text-combiner {
+    position:absolute;
+    top: 471px;
+    left: 48px;
+    font-size: 15px;
+    line-height: 14px;
+    width: 415px;
+}
+.card-text-attachment {
+    position:absolute;
+    top: 420px;
+    left: 48px;
+    font-size: 15px;
+    line-height: 14px;
+    width: 415px;
+    height: 96px;
+}
+.card-text-permanent-resource {
+    position:absolute;
+    top: 420px;
+    left: 48px;
+    font-size: 15px;
+    line-height: 14px;
+    width: 415px;
+    height: 96px;
+}
+.card-text-planet  {
+    position:absolute;
+    top: 420px;
+    left: 48px;
+    font-size: 15px;
+    line-height: 14px;
+    width: 415px;
+    height: 96px;
+}
+
+.card-text-resource {
+    position:absolute;
+    top: 415.5px;
+    left: 47.5px;
+    font-size: 15px;
+    line-height: 14px;
+    height: 96px;
+    width: 415px;
+}
+
+.card-text-acti-2-lines {
+    position:absolute;
+    top: 450px;
+    left: 47.5px;
+    font-size: 15px;
+    line-height: 14px;
+}
+.card-text-acti-1-lines {
+    position:absolute;
+    top: 440px;
+    left: 42.5px;
+    font-size: 15px;
+    line-height: 14px;
+}
+.card-text-acti-3-lines {
+    position:absolute;
+    top: 465px;
+    left: 44.5px;
+    font-size: 15px;
+    line-height: 14px;
+}
+
+.stars {
+    position: absolute;
+    top: 128px;
+    left: 40px;
+}
+
+.planet-text {
+    position: absolute;
+    top: 62.5px;
+    left: 177.5px;
+    font-size: 22.5px;
+    text-align: center;
+}
+
+.rokah-rules-text {
+    color: #dc8f67;
+}
+
+.sheos-rules-text {
+    color: #af1916;
+}
+
+.baro-rules-text {
+    color: #423e3b;
+}
+
+.sindell-rules-text {
+    color: #3b235a;
+}
+
+.sindian-rules-text {
+    color: #bca001;
+}
+
+.teklar-rules-text {
+    color: #01a799;
+}
+
+.gaios-rules-text {
+    color: #497603;
+}
+
+.palicium-rules-text {
+    color: #0b4d6f;
+}
+
+.no-planet-rules-text {
+    color: #555555;
+}
+
+.black-rules-text {
+    color: #000000;
+}
+
+.acti-text-2-lines {
+    top: 415.5px;
+    position: absolute;
+    font-size: 14px;
+    color: #c1b3c8;
+    left: 45.5px;
+    line-height: 14px;
+}
+
+.acti-text-1-lines {
+    top: 419px;
+    position: absolute;
+    font-size: 14px;
+    color: #c1b3c8;
+    left: 45.5px;
+    line-height: 14px;
+}
+
+.acti-text-3-lines {
+    top: 417.5px;
+    position: absolute;
+    font-size: 14px;
+    color: #c1b3c8;
+    left: 45.5px;
+    line-height: 14px;
+}
+
+.invis {
+    display: none;
+}
+
+.power {
+    left: 115px;
+}
+.health {
+    left: 332.5px;
+}
+.card-img {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+    /*filter: hue-rotate(90deg);
+    height: 50%;
+    width: 50%;*/
+}
+.art-creature {			
+    position: absolute;
+    top: 166px;
+    z-index: 1;
+    left: 51px;
+    height: 296px;
+    width: 325px;
+}
+.art-resource {				
+    position: absolute;
+    top: 92px;
+    z-index: 1;
+    left: 51px;
+    height: 325px;
+    width: 327px;
+}
+.art-planet {				
+    position: absolute;
+    top: 90px;
+    z-index: 1;
+    left: 50px;
+    height: 330px;
+    width: 330px;
+}
+.art-permanent-resource {			
+    position: absolute;
+    top: 92px;
+    z-index: 1;
+    left: 51px;
+    height: 325px;
+    width: 327px;
+}
+.art-attachment {			
+    position: absolute;
+    top: 89px;
+    z-index: 1;
+    left: 49px;
+    height: 330px;
+    width: 329px;
+}
+.art-acti-1-lines {
+    position: absolute;
+    top: 87px;
+    z-index: 1;
+    left: 48px;
+    height: 332px;
+    width: 333px;
+}
+.art-acti-2-lines {
+    position: absolute;
+    top: 90px;
+    z-index: 1;
+    left: 50px;
+    height: 327px;
+    width: 328px;
+}
+.art-acti-3-lines {	
+    
+    position: absolute;
+    top: 89px;
+    z-index: 1;
+    left: 49px;
+    height: 328px;
+    width: 329px;
+}
+.art-combiner {				
+    position: absolute;
+    top: 174px;
+    z-index: 1;
+    left: 53px;
+    height: 304px;
+    width: 340px;
+}
+.art-default {				
+    position: absolute;
+    top: 174px;
+    z-index: 1;
+    left: 53px;
+    height: 304px;
+    width: 340px;
+}
+.card-options {
+    position: absolute;
+    left: 425px;
+}

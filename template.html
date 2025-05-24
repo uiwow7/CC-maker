@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Custom Card Creator</title>
+		<!-- <link rel="stylesheet" href="/style.css"> -->
+		<!-- <link rel="icon" href="/img/icon.png" type="image/x-icon"> -->
+		<style>
+			html {
+				font-family: 'Helvetica';
+			}
+			.fields {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				width: 20%;
+			}
+			.templates-container {
+				display: grid;
+				gap: 10px;
+				grid-template-columns: repeat(6, 1fr);
+			}
+			.template-container {
+				display: grid;
+				gap: 5px;
+				grid-template-rows: 0.1fr 4fr 0.1fr;
+				background-color: #444;
+				border-radius: 8px;
+				align-items: center;
+				justify-items: center;
+				text-align: center;
+				color: white;
+				padding: 15px;
+				cursor: pointer;
+			}
+			.template-preview {
+				max-width: 150px;
+			}
+			.template-name {
+				font-weight: bold;
+				font-size: 20px;
+			}
+			.template-desc {
+				font-size: 12px;
+				color: #ddd;
+			}
+			.file-inputs {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				/* color: white; */
+			}
+			#fileinputlabel {
+				margin: 0px;
+			}
+			#fileinput {
+				height: fit-content;
+				width:fit-content;
+			}
+			.card-fields {
+				position: absolute;
+				z-index: 2;
+				width: 100%;
+				height: 100%;
+			}
+
+		</style>
+		<style id="fonts-style"></style>
+	</head>
+	<body>
+		<div class="card-options" id="card-options">
+			<div id="fields" class="fields"></div>
+			<div class="file-inputs">
+				<span id="fileinputlabel">Upload your art!</span>
+				<input type="file" onchange="onFileSelected(event)" id="fileinput">
+			</div>	
+		</div>
+		<div class="card">
+			<img src="img/blank-card.png" id="card-img" class="card-img">
+			<img src="/img/noart.png" id="art" class="art-default">
+			<div class="card-fields" id="card-fields"></div>
+		</div>
+		<script src="parse.js"></script>
+		<script>
+			const template = window.location.href.split("?template=")[1];
+			if (template) {
+				parseStyle(template);
+			} else {
+				document.getElementById('fields').innerText = "No template loaded, go back to template select";
+			}
+			function onFileSelected(event) {
+				var selectedFile = event.target.files[0];
+				var reader = new FileReader();
+			
+				var imgtag = document.getElementById("art");
+				imgtag.title = selectedFile.name;
+				imgtag.crossOrigin = "anonymous";
+
+				reader.onload = function(event) {
+				imgtag.src = event.target.result;
+				};
+			
+				reader.readAsDataURL(selectedFile);
+			}
+		</script>
+	</body>
+</html>

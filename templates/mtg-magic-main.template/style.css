@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "Beleren";
+    src: url("/templates/mtg-magic-main.template/fonts/beleren.ttf");
+}
+@font-face {
+    font-family: "mtg-text";
+    src: url("/templates/mtg-magic-main.template/fonts/mplantin.ttf");
+}
+.card-img {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+    /*filter: hue-rotate(90deg);
+    height: 50%;
+    width: 50%;*/
+}
+.card-options {
+    position: absolute;
+    left: 425px;
+}
+html {
+    color: #000;
+}
+.art-m15 {
+    z-index: 99;
+    position: absolute;
+    top: 70px;
+    left: 38px;
+    width: 352px;
+    height: 252px;
+}
+.mana {
+    position: relative;
+    top: 30px;
+    width: 53%;
+    /* margin-right:    20px;; */
+    direction: rtl;
+    margin-left: 162px;
+}
+.card-fields {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+}
+.pt-overlay {
+    position: absolute;
+    top: 496px;
+    height: 46px;
+    left: 308px;
+}
+.pt {
+    position: absolute;
+    top: 501px;
+    height: 46px;
+    left: 319px;
+    z-index: 3;
+    font-family: 'beleren';
+    font-size: 22px;
+    text-align: center; 
+    width: 64px;
+}

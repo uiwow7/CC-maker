@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Custom Card Creator</title>
+		<!-- <link rel="stylesheet" href="/style.css"> -->
+		<!-- <link rel="icon" href="/img/icon.png" type="image/x-icon"> -->
+		<style>
+			html {
+				font-family: 'Helvetica';
+			}
+			.fields {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				width: 20%;
+			}
+			.templates-container {
+				display: grid;
+				gap: 10px;
+				grid-template-columns: repeat(6, 1fr);
+			}
+			.template-container {
+				display: grid;
+				gap: 5px;
+				grid-template-rows: 0.1fr 4fr 0.1fr;
+				background-color: #444;
+				border-radius: 8px;
+				align-items: center;
+				justify-items: center;
+				text-align: center;
+				color: white;
+				padding: 15px;
+				cursor: pointer;
+			}
+			.template-preview {
+				max-width: 150px;
+			}
+			.template-name {
+				font-weight: bold;
+				font-size: 20px;
+			}
+			.template-desc {
+				font-size: 12px;
+				color: #ddd;
+			}	
+			a {
+				color: #6593d9;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="templates" class="templates-container">
+			<div class="template-container" onclick="window.location.href='/upload.html'">
+				<span class="template-name">Custom Template</span>
+				<img src="/img/plus.png" class="template-preview">
+				<span class="template-desc">Upload your own custom template! <a href="tutorial.html">Tutorial</a></span>
+			</div>
+		</div>
+		</div>
+		<script>
+			let templates_json;
+			async function loadTemplates() {
+				await fetch(`templates/templates.json`)
+				.then(response => response.json())
+				.then(data => {
+						templates_json = data; 
+				}).catch(error => console.error('Error:', error));
+				for (template_name of templates_json.templates) {
+					await constructTemplate(template_name);
+				}
+			}
+
+			async function constructTemplate(template_name) {
+				let style_json;
+				const template_path = `/templates/${template_name}.template/`;
+
+				await fetch(`${template_path}/style.json`)
+					.then(response => response.json())
+					.then(data => {
+						style_json = data; 
+				}).catch(error => console.error('Error:', error)); // load the style json
+
+				const template_container = document.createElement('div');
+				const name = document.createElement('span');
+				const desc = document.createElement('span');
+				const preview = document.createElement('img');
+				name.innerText = style_json.name;
+				name.className = "template-name";
+				desc.innerText = style_json.desc;
+				desc.className = "template-desc";
+				preview.src = template_path + style_json['preview-card'];
+				preview.className = "template-preview";
+				template_container.className = "template-container";
+				template_container.onclick = function() {
+					window.location.href = "template.html?template=" + template_name;
+				}
+				template_container.appendChild(name);
+				template_container.appendChild(preview);
+				template_container.appendChild(desc);
+
+				document.getElementById("templates").appendChild(template_container);
+			}
+
+			loadTemplates();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+.card-options {
+    position: absolute;
+    left: 425px;
+}
+.card-img {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+    /*filter: hue-rotate(90deg);
+    height: 50%;
+    width: 50%;*/
+}
+.card-fields {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+    /*filter: hue-rotate(90deg);
+    height: 50%;
+    width: 50%;*/
+}
+.attribute {
+    position: absolute;
+    left: 352px;
+    height: 35px;
+    width: 35px;
+    top: 24px;
+}
+.art-monster {
+    top: 109px;
+    left: 54px;
+    position: absolute;
+    width: 320px;
+    height: 298px;
+}
+.levels {
+    position: absolute;
+    top: 63px;
+    height: 30px;
+    left: 40px;
+}
+.arrow-1-card {
+    position: absolute;
+    top: 83px;
+    left: 29px;
+}
+.arrow-2-card {
+    position: absolute;
+    top: 78px;
+    left: 158px;
+}
+.arrow-3-card {
+    position: absolute;
+    top: 83px;
+    left: 339px;
+}
+.arrow-4-card {
+    position: absolute;
+    top: 198px;
+    left: 367px;
+}
