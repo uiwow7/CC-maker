@@ -74,7 +74,7 @@
 
 			async function constructTemplate(template_name) {
 				let style_json;
-				const template_path = `/templates/${template_name}.template/`;
+				const template_path = `templates/${template_name}.template/`;
 
 				await fetch(`${template_path}/style.json`)
 					.then(response => response.json())
