@@ -1,4 +1,4 @@
-p {
+span {
     color: #FFFF;
 }
 html {
@@ -9,15 +9,19 @@ html {
     background-size: 100%;
 }
 
-@font-face {
+/* @font-face {
         font-family: 'Shaimus'; /*a name to be used later*/
-        src: url('/templates/cg-chaos-galaxy.template/fonts/Shaimus-Bold.otf'); /*URL to font*/
+        /* src: url('/templates/cg-chaos-galaxy.template/fonts/Shaimus-Bold.otf'); /*URL to font
 }
 @font-face {
-        font-family: 'Shaimus-Light'; /*a name to be used later*/
-        src: url('/templates/cg-chaos-galaxy.template/fonts/ShaimusCleanLight.otf'); /*URL to font*/
+        font-family: 'Shaimus-Light'; /*a name to be used later
+        src: url('/templates/cg-chaos-galaxy.template/fonts/ShaimusCleanLight.otf'); /*URL to font
+} */
+.ridrare-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
-
 .shaimus {
     font-family: 'Shaimus';
     color:#000000;
@@ -30,18 +34,28 @@ html {
     color:#000000;
 }
 
-.card-title {
+/* .card-title {
     position: absolute;
     top: 11px;
     font-size: 27px;
     left: 49px;
+} */
+
+.card-fields {
+    position: absolute;
+    top: 8px;
+    height: 562.5px;
+    width: 412.5px;
+    /*filter: hue-rotate(90deg);
+    height: 50%;
+    width: 50%;*/
 }
-.combiner-plus-text {
+/* .combiner-plus-text {
     position: absolute;
     top: 110px;
     font-size: 23px;
     left: 49px;
-}
+} */
 .power-health {
     position: absolute;
      top: 58px;

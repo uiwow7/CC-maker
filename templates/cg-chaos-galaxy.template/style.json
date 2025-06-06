@@ -3,6 +3,10 @@
     "desc": "Custom card template for Chaos Galaxy",
     "preview-card": "cg-preview.jpg",
     "stylesheet": "style.css",
+    "fonts": [
+        "Shaimus.otf",
+        "Shaimus-Light.otf"
+    ],  
     "types": {
         "Combiner": {
             "fields": [
@@ -80,7 +84,10 @@
             "label": true,
             "url": "/ridrare/{type}.png",
             "default": false,
-            "imgclass": "card-img",
+            "img": {
+                "class": "ridrare-overlay",
+                "loc": "card-fields"
+            },
             "override": {
                 "Activator": {
                     "type": "overlay",
@@ -99,14 +106,24 @@
             "view": "card-text",
             "loc": "card-fields",
             "class": "shaimus-light card-title",
-            "default": "Card Name"
+            "default": "Card Name",
+            "position": "31;43;30;410",
+            "font": {
+                "size": "27",
+                "family": "Shaimus-Light"
+            }
         },
         "other-half": {
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
             "class": "shaimus-light combiner-plus-text",
-            "default": "+ Other Half"
+            "default": "+ Other Half",
+            "position": "124;43;28;410",
+            "font": {
+                "family": "Shaimus-Light",
+                "size": "23"
+            }
         },
         "planet": {
             "type": "infix",
