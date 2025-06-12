@@ -4,8 +4,8 @@ span {
 html {
     height: 100%;
     width: 100%;
-    background-image: url('templates/cg-chaos-galaxy.template/bgdark.jpg');
-      overflow-y: hidden;
+    background-image: url('./bgdark.jpg');
+    overflow-y: hidden;
     background-size: 100%;
 }
 
