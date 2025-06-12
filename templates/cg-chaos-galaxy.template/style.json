@@ -163,15 +163,31 @@
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus power power-health",
-            "default": "999"
+            "default": "999",
+            "style": {
+                "text-align": "center",
+                "color": "black"
+            },
+            "font": {
+                "family": "shaimus",
+                "size": "28"
+            },
+            "position": "78;108;40;48"
         },
         "health": {
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus health power-health",
-            "default": "999"
+            "default": "999",
+            "style": {
+                "text-align": "center",
+                "color": "black"
+            },
+            "font": {
+                "family": "shaimus",
+                "size": "28"
+            },
+            "position": "78;324.5;40;48"
         },
         "side": {
             "type": "infix",
