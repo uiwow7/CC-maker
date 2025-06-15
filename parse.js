@@ -1,14 +1,17 @@
 // var firstU = true;
+var style_json;
 
 function parseStyle(style_name) {
     parsePath(`templates/${style_name}.template/`);
 }
 
 async function parsePath(template_path) {
-    let style_json = "";
+    // let style_json = "";
     let template_style_text;
+    let template_script_text;
     const items_container = document.createElement("div");
     const template_style = document.createElement('style');
+    const template_script = document.getElementById("template-script");
     let fonts_style = document.getElementById("fonts-style");
 
     await fetch(`${template_path}/style.json`)
@@ -23,15 +26,31 @@ async function parsePath(template_path) {
         .then(response => response.text())
         .then(data => {
             template_style_text = data; 
-    }).catch(error => console.error('Error:', error)); // load the style json
+    }).catch(error => console.error('Error:', error)); // load the stylesheet
 
     template_style.innerHTML = template_style_text;    
+
+    await fetch(`${template_path}/${style_json.script}`)
+        .then(response => response.text())
+        .then(data => {
+            template_script_text = data; 
+    }).catch(error => console.error('Error:', error)); // load the stylesheet
+
+    if (template_script_text[0] == "<") {
+        template_script_text = "";
+    }
+    template_script.innerText = template_script_text; 
 
     const type_dropdown = document.createElement('select'); // create a dropdown
     type_dropdown.id = "type-dropdown";
     type_dropdown.onchange = function() {
         updateCard(style_json, template_path);
     }
+
+    const type_label = document.createElement("span");
+    type_label.id = "type-label";
+    type_label.className = "label";
+    type_label.innerText = "Type: "
 
     for (const type in style_json.types) { // for each
         let opt = document.createElement('option');
@@ -44,6 +63,16 @@ async function parsePath(template_path) {
             fonts_style.innerHTML += `@font-face {\n    font-family: "${font.split(/.(t|o)tf/)[0]}";\n  src: url("${template_path}/fonts/${font}");\n}\n`;
         }
     }
+    if (style_json.card) {
+        for (const attr in style_json.card) {
+            document.getElementById("card-fields").style[attr] = style_json.card[attr] + "px";
+            document.getElementById("card-img").style[attr]    = style_json.card[attr] + "px";
+        }
+    }
+
+    document.getElementById("card-fields").style.top = "0";
+
+    items_container.appendChild(type_label);
     items_container.appendChild(type_dropdown);
     items_container.appendChild(template_style);
 
@@ -80,14 +109,58 @@ async function updateFields(fields, style_json, template_path) {
         }
     }
 
-    document.getElementById("art").className = filter(style_json.art.class, style_json, true);
+    const art_ele = document.getElementById("art");
+    art_ele.className = filter(style_json.art.class, style_json, true);
+    if (style_json.art.position) {
+        const position_filtered = filter(style_json.art.position, style_json);
+        let pos_split = position_filtered.split(";");
+        console.log(pos_split, "artpos");
+        art_ele.style.top = filter(pos_split[0], style_json) + "px";
+        art_ele.style.left = filter(pos_split[1], style_json) + "px";
+        art_ele.style.height = filter(pos_split[2], style_json) + "px";
+        art_ele.style.width = filter(pos_split[3], style_json) + "px";
+    }
+
     for (const over in style_json.art.override) {
         if (over == type) {
-            document.getElementById("art").className = filter(style_json.art.override[over].class, style_json, true);
+            art_ele.className = filter(style_json.art.override[over].class, style_json, true);
         }
     }
+
     document.getElementById("card-img").src = template_path + filter(style_json.types[val].url, style_json, true);
     console.log("card-img", template_path + filter(style_json.types[val].url, style_json, true));
+}
+
+function downloadImage(file_extension) {
+    writeImageFile(document.getElementById(filter(style_json.card.name_field, style_json)).innerText + "." + file_extension);
+}
+
+function writeImageFile(fn) {
+    const card_ele = document.getElementsByClassName("card")[0];
+    html2canvas(card_ele, { width: style_json.card.width, height: style_json.card.height, useCORS: true, taintTest: false, allowTaint: false }).then(function(canvas) {
+			var width = canvas.width;
+			var height = canvas.height;
+            var context = canvas.getContext('2d');
+            var imageData = context.getImageData(0, 0, width, height).data;
+            var outputCanvas = document.createElement('canvas');
+            var outputContext = outputCanvas.getContext('2d');
+            outputCanvas.width = width;
+            outputCanvas.height = height;
+            var idata = outputContext.createImageData(width, height);
+            idata.data.set(imageData);
+            outputContext.putImageData(idata, 0, 0);
+            downloadURI(outputCanvas.toDataURL(), fn);
+    });
+}
+
+function downloadURI(uri, name) {
+	var link = document.createElement("a");
+	link.download = name;
+	link.href = uri;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	delete link;
 }
 
 async function makeField(fields, field_name, style_json, template_path, type) {
@@ -193,6 +266,10 @@ async function makeField(fields, field_name, style_json, template_path, type) {
         overlay = document.createElement('img');
         overlay.className = field.img.class;
         overlay.src = template_path + filter(field.url, style_json, true);
+        overlay.style.top    = field.img.top    ? field.img.top    : "0";
+        overlay.style.left   = field.img.left   ? field.img.left   : "0";
+        overlay.style.left   = field.img.left   ? field.img.left   : "100%";
+        overlay.style.height = field.img.height ? field.img.height : "100%";
         if (field.img.style) {
             for (const style_option in field.img.style) {
                 overlay.style[style_option] = filter(field.img.style[style_option], style_json);
@@ -202,7 +279,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
     }
     if (field.label) {
         const field_label = document.createElement('span');
-        field_label.innerText = field_name;
+        const field_text = field.label === true ? field_name : field.label;
+        field_label.innerText = field_text + ": ";
         document.getElementById('fields').appendChild(field_label);
     }
 
@@ -210,7 +288,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
     field_element.id = field_name;
 
     if (field.position) {
-        let pos_split = field.position.split(";");
+        const position_filtered =   filter(field.position, style_json);
+        let pos_split = position_filtered.split(";");
         field_element.style.top = filter(pos_split[0], style_json) + "px";
         field_element.style.left = filter(pos_split[1], style_json) + "px";
         field_element.style.height = filter(pos_split[2], style_json) + "px";
@@ -222,6 +301,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
         field_element.style.fontWeight = filter(field.font.weight, style_json);
         field_element.style.lineHeight = filter(field.font['line-height'], style_json) + "px";
         field_element.style.fontSize = filter(field.font.size, style_json) + "px";
+        field_element.style.color = filter(field.font.color, style_json);
     }
     if (field.style) {
         for (const style_option in field.style) {
@@ -306,6 +386,21 @@ function imgtag(src, template_path, styling) {
     return `<img src="${template_path}/${src}" style="${styling}">`;
 }
 
+function parseConst(str, consts_) {
+    none_to_parse = true;
+    for (const style_const in consts_) {
+        if (str.includes(`!${style_const}`)) {
+            none_to_parse = false;
+            str = str.replaceAll(`!${style_const}`, consts_[style_const]);
+        }
+    }
+
+    if (none_to_parse) 
+        return str;
+
+    return parseConst(str, consts_);
+}
+
 function filter(str, style_json, use_fields = true, lowercase = true) {
     if (!str) {
         return;
@@ -315,38 +410,51 @@ function filter(str, style_json, use_fields = true, lowercase = true) {
     let type = document.getElementById("type-dropdown").value;  
     let expr = "";
     let inexpr = false;
-
-    if (newstr.includes("<") && newstr.includes(">")) {
-        console.log('expr');
-        for (const char of newstr) {
-            if (char == "<") {
-                inexpr = true;
-                continue;
-            }
-            if (inexpr) {
-                if (char == ">") {
-                    newstr = newstr.replace("<" + expr + ">", parseExpr(expr, style_json));
-                    console.log("done expr", newstr);
-                    expr = "";
-                    inexpr = false;
+    
+    while (true) {
+        let found_all = true;
+        if (use_fields) {
+            newstr = parseConst(newstr, style_json.consts);
+            for (const field of style_json.types[type].fields) {
+                let val = document.getElementById(field);
+                if (val == null) {
+                    val = style_json.fields[field].default;
                 } else {
-                    expr += char;
+                    val = val.value;
+                }
+                if (newstr.includes(`{${field}}`) || newstr.includes(`[${field}]`)) {
+                    newstr = newstr.replaceAll(`{${field}}`, val);
+                    newstr = newstr.replaceAll(`[${field}]`, localStorage.getItem(field));
+                    found_all = false;
+                }
+            }
+            if (newstr.includes("{type}")) {
+                newstr = newstr.replaceAll("{type}", document.getElementById("type-dropdown").value);
+                found_all = false;
+            }
+        }
+
+        if (newstr.includes("<") && newstr.includes(">")) {
+            found_all = false;
+            for (const char of newstr) {
+                if (char == "<") {
+                    inexpr = true;
+                    continue;
+                }
+                if (inexpr) {
+                    if (char == ">") {
+                        newstr = newstr.replace("<" + expr + ">", parseExpr(expr, style_json));
+                        expr = "";
+                        inexpr = false;
+                    } else {
+                        expr += char;
+                    }
                 }
             }
         }
-    }
 
-    if (use_fields) {
-        for (const field of style_json.types[type].fields) {
-            console.log(field);
-            let val = document.getElementById(field);
-            if (val == null) {
-                val = style_json.fields[field].default;
-            } else {
-                val = val.value;
-            }
-            newstr = newstr.replaceAll(`{${field}}`, val);
-            newstr = newstr.replaceAll(`[${field}]`, localStorage.getItem(field));
+        if (found_all) {
+            break;
         }
     }
  
@@ -356,9 +464,18 @@ function filter(str, style_json, use_fields = true, lowercase = true) {
     return newstr;
 }
 
+document.getElementById("file-menu").addEventListener("change", function() {
+    const option = document.getElementById("file-menu").value;
+
+    if (option.includes("export")) {
+        downloadImage(option.split("-")[1]);
+    }
+
+    document.getElementById("file-menu").value = "default";
+});
+
 function parseExpr(expr, style_json) {
     const tokens = expr.split(" ");
-    console.log("parsing expr", tokens);    
     let tracker = [];
     let out = "";
     let handle_token = "default";
@@ -380,13 +497,11 @@ function parseExpr(expr, style_json) {
         }
     }
 
-    console.log("parsed", out);
     return out;
 }
 
 function parseIf(tokens) {
     // tokens should look like [COND, then, VAL, else, VAL]
-    console.log("parsing if", tokens); 
     let condition = [];
     let val1 = "";
     let val2 = "";
@@ -411,7 +526,6 @@ function parseIf(tokens) {
         }
     }
 
-    console.log(val1, val2, cond_bool);
     if (cond_bool) {
         return val1;
     } else {
@@ -425,7 +539,6 @@ function filterToken(token) {
         if (t == "type") {
             return document.getElementById('type-dropdown').value.toLowerCase();
         } else {
-            console.log(t);
             return localStorage.getItem(t).toLowerCase();
         }
     } else if (token[0] == ",") {
@@ -433,7 +546,6 @@ function filterToken(token) {
         if (t == "type") {
             return document.getElementById('type-dropdown').value.toLowerCase();
         } else {
-            console.log(t);
             let ele = document.getElementById(t);
             if (ele.tagName == "SELECT") {
                 return ele.value.toLowerCase();
@@ -451,11 +563,9 @@ function filterToken(token) {
 }
 
 function parseCond(cond) {
-    console.log("parsing cond", cond);
     let v1 = filterToken(cond[0]);
     let op = cond[1];
     let v2 = filterToken(cond[2]);
-    console.log(v1, op, v2);
     if (op == "=") {
         return v1 == v2;
     } else if (op == "$") {

@@ -14,7 +14,7 @@
 			.fields {
 				display: grid;
 				grid-template-columns: 2fr 1fr;
-				width: 20%;
+				width: 80%;
 			}
 			.templates-container {
 				display: grid;
@@ -56,6 +56,7 @@
 			#fileinput {
 				height: fit-content;
 				width:fit-content;
+				color: white;
 			}
 			.card-fields {
 				position: absolute;
@@ -63,24 +64,62 @@
 				width: 100%;
 				height: 100%;
 			}
+			.header {
+				position: absolute;
+				background-color: white;
+				display: grid;
+				height: 20px;
+				width: 100%;
+				top: 0;
+				left: 0;
+				display: grid;
+				grid-template-columns: repeat(6, 100px);
+			}
+			.card, .card-options {
+				top: 24px;
+				position: relative;
+			}
+			.card-options {
+				top: 32px; 	
+			}
+			.page-container {
+				display: flex;
+				gap: 15px;
+			}
+			#art {
+				position: absolute;
+			}
+			/* .header-menu {
 
+			} */
 		</style>
 		<style id="fonts-style"></style>
 	</head>
 	<body>
-		<div class="card-options" id="card-options">
-			<div id="fields" class="fields"></div>
-			<div class="file-inputs">
-				<span id="fileinputlabel">Upload your art!</span>
-				<input type="file" onchange="onFileSelected(event)" id="fileinput">
-			</div>	
+		<div class="header" id="header">
+			<select id="file-menu" class="file-menu header-menu">
+				<option value="default">File</option>
+				<option value="export-png">Export .png</option>
+				<option value="export-jpg">Export .jpg</option>
+			</select>
 		</div>
-		<div class="card">
-			<img src="img/blank-card.png" id="card-img" class="card-img">
-			<img src="img/noart.png" id="art" class="art-default">
-			<div class="card-fields" id="card-fields"></div>
+		<div class="page-container">
+			<div class="card">
+				<img src="img/blank-card.png" id="card-img" class="card-img">
+				<img src="img/noart.png" id="art" class="art-default">
+				<div class="card-fields" id="card-fields"></div>
+			</div>
+			<div class="card-options" id="card-options">
+				<div id="fields" class="fields"></div>
+				<div class="file-inputs">
+					<span id="fileinputlabel">Upload your art!</span>
+					<input type="file" onchange="onFileSelected(event)" id="fileinput">
+				</div>	
+			</div>
 		</div>
+		<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 		<script src="parse.js"></script>
+		<script id="template-script"></script>
 		<script>
 			const template = window.location.href.split("?template=")[1];
 			if (template) {

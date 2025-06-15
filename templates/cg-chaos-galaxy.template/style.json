@@ -6,7 +6,52 @@
     "fonts": [
         "Shaimus.otf",
         "Shaimus-Light.otf"
-    ],  
+    ],
+    "card": {
+        "height": "562.5",
+        "width": "412.5",
+        "name_field": "name"
+    },
+    "consts": {
+        "check-acti": "<if .type = activator then",
+        "check-comb": "<if .type = combiner then",
+        "end": "end>",
+        "acti-class": "card-text-!acti-lines",
+        "type-class": "card-text-{type}",
+        "acti": "acti-{lines}",
+        "light": "shaimus-light",
+        "bold": "shaimus",
+        "ridrare-acti": "!ridrare-path!acti.png",
+        "ridrare-norm": "!ridrare-path{type}.png",
+        "ridrare-path": "ridrare/",
+        "ridrare": "!check-acti !ridrare-acti else !ridrare-norm !end",
+        "type-pos": "!{type}-pos",
+        "Activator-pos": "!act-pos-{lines}",
+        "act-pos-1": "440;43;!textbox-size",
+        "act-pos-2": "450;48;!textbox-size",
+        "act-pos-3": "465;45;!textbox-size",
+        "Resource-pos": "!standard-pos",
+        "Permanent-Resource-pos": "!standard-pos",
+        "Attachment-pos": "!standard-pos",
+        "Creature-pos": "464;40;58;415",
+        "Planet-pos": "!standard-pos",
+        "Combiner-pos": "478;40;!textbox-size",
+        "standard-pos": "425;40;!textbox-size",
+        "textbox-size": "96;332",
+        "art-pos": "!{type}-art",
+        "Combiner-art": "!combiner-{side}-art",
+        "check-left": "<if .side = left then",
+        "check-right": "<if .side = right then",
+        "combiner-left-art":  "166;44;304;341",
+        "combiner-right-art": "166;28;304;341",
+        "Creature-art": "158;42;296;327",
+        "Resource-art": "!standard-art",
+        "standard-art": "84;43;325;327",
+        "Permanent-Resource-art": "!standard-art",
+        "Attachment-art": "81;41;331;329",
+        "Planet-art": "82;42;329;329",
+        "Activator-art": "79;40;333;333"
+    },
     "types": {
         "Combiner": {
             "fields": [
@@ -72,7 +117,7 @@
                 "lines",
                 "ridrare"
             ],
-            "url": "/activators/acti-{lines}.jpg"
+            "url": "/activators/!acti.jpg"
         }
     },
     "fields": {
@@ -80,56 +125,43 @@
             "type": "overlay",
             "view": "checkbox",
             "loc": "fields",
-            "imgloc": "card-fields",
-            "label": true,
-            "url": "/ridrare/{type}.png",
+            "label": "Ridiculously rare overlay",
+            "url": "!ridrare",
             "default": false,
             "img": {
                 "class": "ridrare-overlay",
                 "loc": "card-fields"
-            },
-            "override": {
-                "Activator": {
-                    "type": "overlay",
-                    "view": "checkbox",
-                    "loc": "fields",
-                    "imgloc": "card-fields",
-                    "label": true,
-                    "url": "/ridrare/acti-{lines}.png",
-                    "imgclass": "card-img",
-                    "default": false
-                }
             }
         },
         "name": {
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus-light card-title",
             "default": "Card Name",
             "position": "31;43;30;410",
             "font": {
                 "size": "27",
-                "family": "Shaimus-Light"
+                "family": "!light",
+                "color": "black"
             }
         },
         "other-half": {
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus-light combiner-plus-text",
             "default": "+ Other Half",
             "position": "124;43;28;410",
             "font": {
-                "family": "Shaimus-Light",
-                "size": "23"
+                "family": "!light",
+                "size": "23",
+                "color": "black"
             }
         },
         "planet": {
             "type": "infix",
             "view": "dropdown",
             "loc": "fields",
-            "label": true,
+            "label": "Planet",
             "options": [
                 "baro",
                 "gaios",
@@ -147,17 +179,15 @@
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus-light card-text-{type}",
-            "default": "Card text goes here",
-            "override": {
-                "Activator": {
-                    "type": "card",
-                    "view": "card-text",
-                    "loc": "card-fields",
-                    "class": "shaimus-light card-text-acti-{lines}-lines",
-                    "default": "Card text goes here"
-                }
-            }
+            "class": "!type-pos",
+            "position": "!type-pos",
+            "font": {
+                "family": "!light",
+                "size": "15",
+                "line-height": "14",
+                "color": "black"
+            },
+            "default": "Card text goes here"
         },
         "power": {
             "type": "card",
@@ -165,12 +195,12 @@
             "loc": "card-fields",
             "default": "999",
             "style": {
-                "text-align": "center",
-                "color": "black"
+                "text-align": "center"
             },
             "font": {
-                "family": "shaimus",
-                "size": "28"
+                "family": "!bold",
+                "size": "28",
+                "color": "black"
             },
             "position": "78;108;40;48"
         },
@@ -180,12 +210,12 @@
             "loc": "card-fields",
             "default": "999",
             "style": {
-                "text-align": "center",
-                "color": "black"
+                "text-align": "center"
             },
             "font": {
-                "family": "shaimus",
-                "size": "28"
+                "family": "!bold",
+                "size": "28",
+                "color": "black"
             },
             "position": "78;324.5;40;48"
         },
@@ -193,7 +223,7 @@
             "type": "infix",
             "view": "dropdown",
             "loc": "fields",
-            "label": true,
+            "label": "Combiner's half",
             "options": [
                 "left",
                 "right"
@@ -204,14 +234,14 @@
             "type": "card",
             "view": "card-text",
             "loc": "card-fields",
-            "class": "shaimus acti-text-{lines}-lines",
+            "class": "!bold acti-text-{lines}-lines",
             "default": "Your condition..."
         },
         "lines": {
             "type": "infix",
             "view": "dropdown",
             "loc": "fields",
-            "label": true,
+            "label": "Number of lines in condition",
             "options": [
                 "1",
                 "2",
@@ -221,11 +251,7 @@
         }
     },
     "art": {
-        "class": "art-{type}",
-        "override": {
-            "Activator": {
-                "class": "art-acti-{lines}-lines"
-            }
-        }
+        "position": "!art-pos",
+        "class": "!art-pos"
     }
 }

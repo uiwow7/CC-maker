@@ -2,24 +2,6 @@
     position: absolute;
     left: 425px;
 }
-.card-img {
-    position: absolute;
-    top: 8px;
-    height: 562.5px;
-    width: 412.5px;
-    /*filter: hue-rotate(90deg);
-    height: 50%;
-    width: 50%;*/
-}
-.card-fields {
-    position: absolute;
-    top: 8px;
-    height: 562.5px;
-    width: 412.5px;
-    /*filter: hue-rotate(90deg);
-    height: 50%;
-    width: 50%;*/
-}
 .attribute {
     position: absolute;
     left: 352px;
