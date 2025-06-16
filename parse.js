@@ -1,5 +1,22 @@
 // var firstU = true;
 var style_json;
+var temp_path;
+var set;
+var current_card;
+
+function newCard() {
+    const default_type = Object.keys(style_json.types)[0];
+    const type_json = style_json.types[default_type];
+    const fields = type_json.fields;
+    let card = {};
+
+    for (const field of fields) {
+        const field_default = style_json.fields[field].default;
+        card[field] = field_default != null ? field_default : "";
+    }
+
+    return card;
+}
 
 function parseStyle(style_name) {
     parsePath(`templates/${style_name}.template/`);
@@ -13,6 +30,7 @@ async function parsePath(template_path) {
     const template_style = document.createElement('style');
     const template_script = document.getElementById("template-script");
     let fonts_style = document.getElementById("fonts-style");
+    temp_path = template_path;
 
     await fetch(`${template_path}/style.json`)
         .then(response => response.json())
@@ -44,7 +62,7 @@ async function parsePath(template_path) {
     const type_dropdown = document.createElement('select'); // create a dropdown
     type_dropdown.id = "type-dropdown";
     type_dropdown.onchange = function() {
-        updateCard(style_json, template_path);
+        renderCard(style_json, template_path);
     }
 
     const type_label = document.createElement("span");
@@ -78,24 +96,39 @@ async function parsePath(template_path) {
 
     document.getElementById("card-options").appendChild(items_container);
 
-    updateCard(style_json, template_path);
+    set = {cards: [newCard()], options: {}, currentCardIndex: 0};
+    makeSet();
+    loadCard(set.cards[0], template_path);
+
+    renderCard(style_json, template_path);
 }
 
 function attribize(str) {
     return str.replaceAll(" ", "-").toLowerCase();
 }
 
-async function updateCard(style_json, template_path) {
-    let val = document.getElementById("type-dropdown").value;
-    updateFields(style_json.types[val].fields, style_json, template_path);
-    console.log("DONE FIELDS");
+function loadCard(card) {
+    current_card = card;
+    renderCard(style_json, temp_path);
 }
 
-async function updateFields(fields, style_json, template_path) {
+function renderCard(style_json, template_path) {
+    let val = document.getElementById("type-dropdown").value;
+    updateFields(style_json.types[val].fields, template_path, current_card);
+}
+
+async function updateFields(fields, template_path, card = false) {
     document.getElementById('fields').innerHTML = '';
     document.getElementById('card-fields').innerHTML = '';
     let val = document.getElementById("type-dropdown").value;
     let type = document.getElementById("type-dropdown").value;
+
+    if (card) {
+        for (const field_name in card) {
+            localStorage.setItem(field_name, card[field_name]);
+        }
+    }
+
     for (const field_name of fields) {
         let field = style_json.fields[field_name];
         if (field.type == "infix") {
@@ -114,7 +147,6 @@ async function updateFields(fields, style_json, template_path) {
     if (style_json.art.position) {
         const position_filtered = filter(style_json.art.position, style_json);
         let pos_split = position_filtered.split(";");
-        console.log(pos_split, "artpos");
         art_ele.style.top = filter(pos_split[0], style_json) + "px";
         art_ele.style.left = filter(pos_split[1], style_json) + "px";
         art_ele.style.height = filter(pos_split[2], style_json) + "px";
@@ -126,9 +158,10 @@ async function updateFields(fields, style_json, template_path) {
             art_ele.className = filter(style_json.art.override[over].class, style_json, true);
         }
     }
-
+    
     document.getElementById("card-img").src = template_path + filter(style_json.types[val].url, style_json, true);
-    console.log("card-img", template_path + filter(style_json.types[val].url, style_json, true));
+
+    makeSet();
 }
 
 function downloadImage(file_extension) {
@@ -197,8 +230,9 @@ async function makeField(fields, field_name, style_json, template_path, type) {
             }
             field_element.onchange = function() {
                 localStorage.setItem(field_name, document.getElementById(field_name).value);
-                updateCard(style_json, template_path);
-                updateFields(fields, style_json, template_path);
+                current_card[field_name] = document.getElementById(field_name).value;
+                renderCard(style_json, template_path);
+                updateFields(fields, template_path);
             }
             break;
         case "card-text":
@@ -209,7 +243,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
             field_element.innerText = field_default;
             field_element.onblur = function() {
                 localStorage.setItem(field_name, field_element.innerText);
-                updateCard(style_json, template_path);
+                current_card[field_name] = document.getElementById(field_name).innerText;
+                renderCard(style_json, template_path);
             }
             break;
         case "card-sym":
@@ -252,8 +287,9 @@ async function makeField(fields, field_name, style_json, template_path, type) {
             field_element.checked = (field_default == "true");
             field_element.onchange = function() {
                 localStorage.setItem(field_name, document.getElementById(field_name).checked);
-                updateCard(style_json, template_path);
-                updateFields(fields, style_json, template_path);
+                current_card[field_name] = document.getElementById(field_name).checked;
+                renderCard(style_json, template_path);
+                updateFields(fields, template_path);
             }
             break;
         case "none":
@@ -261,6 +297,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
     }
     if (field.default != null && localStorage.getItem(field_name) == null) {
         localStorage.setItem(field_name, field.default)
+    
     }
     if (field.type == "overlay" && (localStorage.getItem(field_name) == "true" || field.view != "checkbox")) {
         overlay = document.createElement('img');
@@ -315,12 +352,52 @@ async function makeField(fields, field_name, style_json, template_path, type) {
     return;
 }
 
+function makeSet() {
+    document.getElementById("cards").innerHTML = '';
+    for (const card of set.cards) {
+        document.getElementById("cards").appendChild(makeCard(card));
+    }
+}
+
+function makeCard(card) {
+    const name_field = style_json.card.name_field;
+    
+    const card_container = document.createElement("div");
+    card_container.className = "card-container";
+    
+    const card_name = document.createElement("span");
+    card_name.className = "card-name";
+    card_name.innerText = card[style_json.card.name_field];  
+
+    card_container.appendChild(card_name);
+
+    card_container.onclick = function() {
+        loadCard(card);
+    }
+
+    if (!style_json.card.display_fields) 
+        return card_container;
+
+    for (const display_field of style_json.card.display_fields) {
+        const field_ele = document.createElement("span");
+        field_ele.className = "card-field-display";
+        field_ele.innerText = set.cards[set.currentCardIndex][display_field];
+
+        card_container.appendChild(field_ele);
+    }
+
+    return card_container;
+} 
+
 async function symbolFontModify(field_name, field_element, field, style_json, template_path) {
     if (field['keep-text']) { 
         localStorage.setItem(field_name, document.getElementById(field_name).innerHTML.replaceAll("\n", "<br>"));
+        current_card[field_name] =       document.getElementById(field_name).innerHTML.replaceAll("\n", "<br>");
     } else {
         localStorage.setItem(field_name, document.getElementById(field_name + "-modify").innerHTML.replaceAll("\n", "<br>"));
+        current_card[field_name] =       document.getElementById(field_name + "-modify").innerHTML.replaceAll("\n", "<br>");
     }
+    makeSet()
     aa = await parseSymbolFont(localStorage.getItem(field_name), field['symbol-font'], style_json, template_path);
     if (field['keep-text']) {
         field_element.contentEditable = "true";
@@ -472,6 +549,19 @@ document.getElementById("file-menu").addEventListener("change", function() {
     }
 
     document.getElementById("file-menu").value = "default";
+});
+
+document.getElementById("cards-menu").addEventListener("change", function() {
+    const option = document.getElementById("cards-menu").value;
+
+    if (option == "new-card") {
+        set.cards.push(newCard());
+        set.currentCardIndex += 1;
+        loadCard(set.cards[set.currentCardIndex]);
+        makeSet();
+    }
+
+    document.getElementById("cards-menu").value = "default";
 });
 
 function parseExpr(expr, style_json) {

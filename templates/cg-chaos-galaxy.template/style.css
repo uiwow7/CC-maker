@@ -1,4 +1,4 @@
-span {
+/* span {
     color: #FFFF;
 }
 .header {
@@ -8,12 +8,12 @@ span {
 .header-menu {
     background-color: black;
     color: white; 
-}
+} */
 
 html {
     height: 100%;
     width: 100%;
-    background-image: url('templates/cg-chaos-galaxy.template/bgdark.jpg');
+    background-image: url('templates/cg-chaos-galaxy.template/bglight.png');
     overflow-y: hidden;
     background-size: 100%;
 }

@@ -10,7 +10,10 @@
     "card": {
         "height": "562.5",
         "width": "412.5",
-        "name_field": "name"
+        "name_field": "name",
+        "display_fields": [
+            "planet"
+        ]
     },
     "consts": {
         "check-acti": "<if .type = activator then",
@@ -73,7 +76,8 @@
                 "text",
                 "power",
                 "health",
-                "ridrare"
+                "ridrare",
+                "stars"
             ],
             "url": "/creatures/{planet}card.jpg"
         },
@@ -248,6 +252,17 @@
                 "3"
             ],
             "default": "1"
+        },
+        "stars": {
+            "type": "overlay",
+            "view": "input",
+            "loc": "fields", 
+            "label": "Creature's stars",
+            "default": "1",
+            "img": {
+                "class": "stars",
+                "loc": "card-fields"
+            }
         }
     },
     "art": {
