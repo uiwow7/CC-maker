@@ -296,6 +296,22 @@ async function makeField(fields, field_name, style_json, template_path, type) {
                 updateFields(fields, template_path);
             }
             break;
+        case "input": 
+            field_element = document.createElement('input');
+            field_element.type = field.input_type ? field.input_type : "text";
+            field_default = localStorage.getItem(field_name);
+            if (field_default) {
+                field_element.value = field_default;
+            } else {
+                field_element.value = field.default ? field.default : "";
+            }
+            field_element.onchange = function() {
+                localStorage.setItem(field_name, document.getElementById(field_name).value);
+                current_card[field_name] = document.getElementById(field_name).value;
+                renderCard(style_json, template_path);
+                // updateFields(fields, template_path);
+            }
+            break;
         case "none":
             field_element = document.createElement("div");
             field_element.style.display = "none";
@@ -309,10 +325,12 @@ async function makeField(fields, field_name, style_json, template_path, type) {
         overlay = document.createElement('img');
         overlay.className = field.img.class;
         overlay.src = template_path + filter(field.url, style_json, true);
-        overlay.style.top    = field.img.top    ? field.img.top    : "0";
-        overlay.style.left   = field.img.left   ? field.img.left   : "0";
-        overlay.style.left   = field.img.left   ? field.img.left   : "100%";
-        overlay.style.height = field.img.height ? field.img.height : "100%";
+        // console.log(filter(field.url), "filtered");
+        overlay.style.position = "absolute";
+        overlay.style.top    = field.img.top    ? filter(field.img.top   , style_json) + "px" : "0";
+        overlay.style.left   = field.img.left   ? filter(field.img.left  , style_json) + "px" : "0";
+        overlay.style.width  = field.img.width  ? filter(field.img.width , style_json) + "px" : "100%";
+        overlay.style.height = field.img.height ? filter(field.img.height, style_json) + "px" : "100%";
         if (field.img.style) {
             for (const style_option in field.img.style) {
                 overlay.style[style_option] = filter(field.img.style[style_option], style_json);
