@@ -15,6 +15,8 @@ function newCard() {
         card[field] = field_default != null ? field_default : "";
     }
 
+    card.art = "img/noart.png";
+
     return card;
 }
 
@@ -85,6 +87,7 @@ async function parsePath(template_path) {
         for (const attr in style_json.card) {
             document.getElementById("card-fields").style[attr] = style_json.card[attr] + "px";
             document.getElementById("card-img").style[attr]    = style_json.card[attr] + "px";
+            document.getElementsByClassName("card")[0].style[attr]    = style_json.card[attr] + "px";
         }
     }
 
@@ -160,6 +163,7 @@ async function updateFields(fields, template_path, card = false) {
     }
     
     document.getElementById("card-img").src = template_path + filter(style_json.types[val].url, style_json, true);
+    document.getElementById("art").src = card.art;
 
     makeSet();
 }
@@ -293,6 +297,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
             }
             break;
         case "none":
+            field_element = document.createElement("div");
+            field_element.style.display = "none";
             break;
     }
     if (field.default != null && localStorage.getItem(field_name) == null) {
@@ -546,6 +552,10 @@ document.getElementById("file-menu").addEventListener("change", function() {
 
     if (option.includes("export")) {
         downloadImage(option.split("-")[1]);
+    } else if (option == "save-set") {
+        saveSet();
+    } else if (option == "open-set") {
+        openSet();
     }
 
     document.getElementById("file-menu").value = "default";
@@ -563,6 +573,58 @@ document.getElementById("cards-menu").addEventListener("change", function() {
 
     document.getElementById("cards-menu").value = "default";
 });
+
+document.getElementById("add-btn").addEventListener("click", function() {
+    set.cards.push(newCard());
+    set.currentCardIndex += 1;
+    loadCard(set.cards[set.currentCardIndex]);
+    makeSet();
+});
+
+function saveSet() {
+    writeTextFile("set.json", JSON.stringify(set));
+}
+
+function writeTextFile(fn, text) {
+    downloadURI("data:text;charset=utf-8," + encodeURIComponent(text), fn)
+}
+
+function openSet() {
+    const file_input = document.createElement("input");
+    file_input.type = "file";
+    file_input.onchange = openSetHandler;
+    file_input.click();
+}
+
+function artHandler(event) {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.getElementById("art");
+    imgtag.title = selectedFile.name;
+    imgtag.crossOrigin = "anonymous";
+
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+        current_card.art = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
+}
+
+function openSetHandler(event) {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+        console.log(JSON.parse(event.target.result));
+        set = JSON.parse(event.target.result);
+        loadCard(set.cards[0]);
+    };
+
+    reader.readAsText(selectedFile);
+}
+
 
 function parseExpr(expr, style_json) {
     const tokens = expr.split(" ");

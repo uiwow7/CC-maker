@@ -6,19 +6,7 @@
     font-family: "mtg-text";
     src: url("/templates/mtg-magic-main.template/fonts/mplantin.ttf");
 }
-.card-img {
-    position: absolute;
-    top: 8px;
-    height: 562.5px;
-    width: 412.5px;
-    /*filter: hue-rotate(90deg);
-    height: 50%;
-    width: 50%;*/
-}
-.card-options {
-    position: absolute;
-    left: 425px;
-}
+
 html {
     color: #000;
 }
@@ -38,12 +26,7 @@ html {
     direction: rtl;
     margin-left: 162px;
 }
-.card-fields {
-    position: absolute;
-    top: 8px;
-    height: 562.5px;
-    width: 412.5px;
-}
+
 .pt-overlay {
     position: absolute;
     top: 496px;

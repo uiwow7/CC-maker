@@ -3,6 +3,16 @@
     "desc": "Custom card template for MTG",
     "preview-card": "mtg-preview.png",
     "stylesheet": "style.css",
+    "card": {
+        "height": "562.5",
+        "width": "412.5",
+        "name_field": "name",
+        "display_fields": [
+            "color",
+            "card-type",
+            "mana"
+        ]
+    },
     "types": {
         "M15 Normal": {
             "fields": [
