@@ -3,6 +3,7 @@ var style_json;
 var temp_path;
 var set;
 var current_card;
+var active_field;
 
 function newCard() {
     const default_type = Object.keys(style_json.types)[0];
@@ -78,11 +79,13 @@ async function parsePath(template_path) {
         opt.innerText = type;
         type_dropdown.appendChild(opt);
     }
+
     if (style_json.fonts) {
         for (const font of style_json.fonts) {
             fonts_style.innerHTML += `@font-face {\n    font-family: "${font.split(/.(t|o)tf/)[0]}";\n  src: url("${template_path}/fonts/${font}");\n}\n`;
         }
     }
+
     if (style_json.card) {
         for (const attr in style_json.card) {
             document.getElementById("card-fields").style[attr] = style_json.card[attr] + "px";
@@ -90,6 +93,22 @@ async function parsePath(template_path) {
             document.getElementsByClassName("card")[0].style[attr]    = style_json.card[attr] + "px";
         }
     }
+
+    if (style_json.automation) {
+        if (style_json.automation.insert) {
+            for (const iname in style_json.automation.insert) {
+                const option_ele = document.createElement("option");
+                option_ele.innerText = iname;
+                option_ele.value = iname;
+                document.getElementById("insert-menu").appendChild(option_ele);
+            }
+            document.getElementById("insert-menu").onchange = function() {
+                document.getElementById(active_field).innerHTML += style_json.automation.insert[document.getElementById("insert-menu").value] + " ";
+            }
+        }
+    }
+
+    document.getElementById("insert-menu").disabled = true;
 
     document.getElementById("card-fields").style.top = "0";
 
@@ -245,7 +264,13 @@ async function makeField(fields, field_name, style_json, template_path, type) {
             field_element = document.createElement('span');
             field_element.contentEditable = "true";
             field_element.innerText = field_default;
+            field_element.onfocus = function() {
+                active_field = field_name;
+                document.getElementById("insert-menu").disabled = false;
+            }
             field_element.onblur = function() {
+                
+                // document.getElementById("insert-menu").disabled = true;
                 localStorage.setItem(field_name, field_element.innerText);
                 current_card[field_name] = document.getElementById(field_name).innerText;
                 renderCard(style_json, template_path);
@@ -261,8 +286,14 @@ async function makeField(fields, field_name, style_json, template_path, type) {
                 field_element.contentEditable = "true";
                 field_element.innerHTML = aa;
                 // field_element_modify.style.zIndex = "-2";
+                field_element.onfocus = function() {
+                    active_field = field_name;
+                    document.getElementById("insert-menu").disabled = false;
+                }
                 field_element.addEventListener("blur", async function() {
-                    await symbolFontModify(field_name, field_element, field, style_json, template_path);
+                    
+                    // document.getElementById("insert-menu").disabled = true;
+                    symbolFontModify(field_name, field_element, field, style_json, template_path);
                 });
                 field_element.style.color = "";
                 break;
@@ -427,7 +458,13 @@ async function symbolFontModify(field_name, field_element, field, style_json, te
         field_element.contentEditable = "true";
         field_element.innerHTML = aa;
         // field_element_modify.style.zIndex = "-2";
+        field_element.onfocus = function() {
+            active_field = field_name;
+            document.getElementById("insert-menu").disabled = false;
+        }
         field_element.addEventListener("blur", function() {
+            
+            // document.getElementById("insert-menu").disabled = true;
             symbolFontModify(field_name, field_element, field, style_json, template_path);
         });
         field_element.style.color = "";
@@ -443,7 +480,13 @@ async function symbolFontModify(field_name, field_element, field, style_json, te
         // field_element_modify.style.zIndex = "-2";
         field_element.style.color = "rgba(0,0,0,0)";
         field_element.appendChild(field_element_modify);
+        field_element.onfocus = function() {
+            active_field = field_name;
+            document.getElementById("insert-menu").disabled = false;
+        }
         field_element_modify.addEventListener("blur", async function() {
+            
+            document.getElementById("insert-menu").disabled = true;
             await symbolFontModify(field_name, field_element, field, style_json, template_path);
         });
     }

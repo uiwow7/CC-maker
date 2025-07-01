@@ -1,15 +1,3 @@
-/* span {
-    color: #FFFF;
-}
-.header {
-    background-color: black;
-    color:white;
-}
-.header-menu {
-    background-color: black;
-    color: white; 
-} */
-
 html {
     height: 100%;
     width: 100%;
@@ -28,42 +16,6 @@ html {
     transform: scaleX(0.8);
     transform-origin: left;
     color:#000000;
-}
-
-.card-text-acti-2-lines {
-    position:absolute;
-    top: 450px;
-    left: 47.5px;
-    font-size: 15px;
-    line-height: 14px;
-}
-.card-text-acti-1-lines {
-    position:absolute;
-    top: 440px;
-    left: 42.5px;
-    font-size: 15px;
-    line-height: 14px;
-}
-.card-text-acti-3-lines {
-    position:absolute;
-    top: 465px;
-    left: 44.5px;
-    font-size: 15px;
-    line-height: 14px;
-}
-
-.stars {
-    position: absolute;
-    top: 128px;
-    left: 40px;
-}
-
-.planet-text {
-    position: absolute;
-    top: 62.5px;
-    left: 177.5px;
-    font-size: 22.5px;
-    text-align: center;
 }
 
 .rokah-rules-text {

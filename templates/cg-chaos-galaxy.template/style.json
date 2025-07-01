@@ -15,6 +15,11 @@
             "planet"
         ]
     },
+    "automation": {
+        "insert": {
+            "Sindian text": "<span style=\"color: #bca001;\">Sindian text</span><span>$$$$</span>"
+        }
+    },
     "consts": {
         "check-acti": "<if .type = activator then",
         "check-comb": "<if .type = combiner then",
