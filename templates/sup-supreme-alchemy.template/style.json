@@ -1,6 +1,7 @@
 {
 	"name": "Supreme Alchemy",
-	"desc": "Card template for Supreme Alchemy TCG",
+	"desc": "Template for Supreme Alchemy TCG",
+	"preview-card": "cardback.png",
 	"card": {
 		"height": "692",
 		"width": "489",
