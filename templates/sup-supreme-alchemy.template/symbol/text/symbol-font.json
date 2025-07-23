@@ -1,0 +1,24 @@
+{
+	"size": "23px",
+	"z-index": "1",
+	"single": {
+		"{D}": "draconis.png",
+		"{U}": "undamari.png",
+		"{V}": "verdarok.png",
+		"{Z}": "zephyrite.png",
+		"{F}": "draconis.png",
+		"{W}": "undamari.png",
+		"{E}": "verdarok.png",
+		"{A}": "zephyrite.png"
+	},
+	"double": {
+		"{fire}": "draconis.png",
+		"{water}": "undamari.png",
+		"{earth}": "verdarok.png",
+		"{air}": "zephyrite.png",
+		"{Fire}": "draconis.png",
+		"{Water}": "undamari.png",
+		"{Earth}": "verdarok.png",
+		"{Air}": "zephyrite.png"
+	}
+}

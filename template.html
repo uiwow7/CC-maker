@@ -1,203 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Custom Card Creator</title>
-		<!-- <link rel="stylesheet" href="/style.css"> -->
-		<!-- <link rel="icon" href="/img/icon.png" type="image/x-icon"> -->
-		<style>
-			html {
-				font-family: 'Helvetica';
-			}
-			.fields {
-				display: grid;
-				grid-template-columns: 2fr 1fr;
-				width: 80%;
-			}
-			.templates-container {
-				display: grid;
-				gap: 10px;
-				grid-template-columns: repeat(6, 1fr);
-			}
-			.template-container {
-				display: grid;
-				gap: 5px;
-				grid-template-rows: 0.1fr 4fr 0.1fr;
-				background-color: #444;
-				border-radius: 8px;
-				align-items: center;
-				justify-items: center;
-				text-align: center;
-				color: white;
-				padding: 15px;
-				cursor: pointer;
-			}
-			.template-preview {
-				max-width: 150px;
-			}
-			.template-name {
-				font-weight: bold;
-				font-size: 20px;
-			}
-			.template-desc {
-				font-size: 12px;
-				color: #ddd;
-			}
-			.file-inputs {
-				display: grid;
-				grid-template-columns: 1fr 2fr;
-				/* color: white; */
-			}
-			#fileinputlabel {
-				margin: 0px;
-			}
-			#fileinput {
-				height: fit-content;
-				width:fit-content;
-				color: white;
-			}
-			.card-fields {
-				position: absolute;
-				z-index: 2;
-				width: 100%;
-				height: 100%;
-			}
-			.header {
-				position: absolute;
-				background-color: white;
-				display: grid;
-				height: 20px;
-				width: 100%;
-				top: 0;
-				left: 0;
-				display: grid;
-				grid-template-columns: repeat(6, 100px);
-			}
-			.card, .card-options, .set-container {
-				top: 24px;
-				position: relative;
-			}
-			.card-options {
-				top: 32px; 	
-			}
-			.page-container {
-				display: grid;
-				gap: 15px;
-				grid-template-columns: 0.1fr 1fr 1fr;
-			}
-			#art {
-				position: absolute;
-			}
-			.card-container {
-				border-bottom: 2px solid black;
-				padding: 3px;
-				font-weight: bold;
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-			}
-			.card-container:hover {
-				background-color: #00000033;
-			}
-			.set-container {
-				border-top:    2px solid black;
-				border-right:  2px solid black;
-				border-left:   2px solid black;
-				border-bottom: 2px solid black;
-				width: 100%;
-				height: 70vh;
-				overflow-y:scroll;
-				top: 0;
-			}
-			.set-area-icon {
-				max-height: 20px;
-			}
-			.set-area {
-				padding-top: 30px;
-			}
-			.card-field-display {
-				border-left: 2px solid black;
-				padding: 3px;
-			}
-			.card-name {
-				padding: 3px;
-			}
-			.set-area-btn {
-				padding: 8px;
-				background-color: black;
-				color: white;
-				border: 2px solid white;
-				border-radius: 15px;
-				display: flex;
-				align-items: center;
-				justify-items: center;
-				gap: 8px;
-				font-weight: bold;
-			}
-			.set-area-btn:hover {
-				background-color: #333;
-			}
-			.set-options {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 5px;
-				margin-bottom: 8px;
-			}
-			/* .header-menu {
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Custom Card Creator</title>
+	<!-- <link rel="stylesheet" href="/style.css"> -->
+	<!-- <link rel="icon" href="/img/icon.png" type="image/x-icon"> -->
+	<style>
+		html {
+			font-family: 'Helvetica';
+		}
+
+		.fields {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			width: 80%;
+		}
+
+		.templates-container {
+			display: grid;
+			gap: 10px;
+			grid-template-columns: repeat(6, 1fr);
+		}
+
+		.template-container {
+			display: grid;
+			gap: 5px;
+			grid-template-rows: 0.1fr 4fr 0.1fr;
+			background-color: #444;
+			border-radius: 8px;
+			align-items: center;
+			justify-items: center;
+			text-align: center;
+			color: white;
+			padding: 15px;
+			cursor: pointer;
+		}
+
+		.template-preview {
+			max-width: 150px;
+		}
+
+		.template-name {
+			font-weight: bold;
+			font-size: 20px;
+		}
+
+		.template-desc {
+			font-size: 12px;
+			color: #ddd;
+		}
+
+		.file-inputs {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			/* color: white; */
+		}
+
+		#fileinputlabel {
+			margin: 0px;
+		}
+
+		#fileinput {
+			height: fit-content;
+			width: fit-content;
+			color: white;
+		}
+
+		.card-fields {
+			position: absolute;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+		}
+
+		.header {
+			position: absolute;
+			background-color: white;
+			display: grid;
+			height: 20px;
+			width: 100%;
+			top: 0;
+			left: 0;
+			display: grid;
+			grid-template-columns: repeat(6, 100px);
+		}
+
+		.card,
+		.card-options,
+		.set-container {
+			top: 24px;
+			position: relative;
+		}
+
+		.card-options {
+			top: 32px;
+		}
+
+		.page-container {
+			display: grid;
+			gap: 15px;
+			grid-template-columns: 0.1fr 1fr 1fr;
+		}
+
+		#art {
+			position: absolute;
+		}
+
+		.card-container {
+			border-bottom: 2px solid black;
+			padding: 3px;
+			font-weight: bold;
+			display: grid;
+			grid-template-columns: auto;
+		}
+
+		.card-container:hover {
+			background-color: #00000033;
+		}
+
+		.set-container {
+			border-top: 2px solid black;
+			border-right: 2px solid black;
+			border-left: 2px solid black;
+			border-bottom: 2px solid black;
+			width: 100%;
+			height: 70vh;
+			overflow-y: scroll;
+			top: 0;
+		}
+
+		.set-area-icon {
+			max-height: 20px;
+		}
+
+		.set-area {
+			padding-top: 30px;
+		}
+
+		.card-field-display {
+			border-left: 2px solid black;
+			padding: 3px;
+		}
+
+		.card-name {
+			padding: 3px;
+		}
+
+		.set-area-btn {
+			padding: 8px;
+			background-color: black;
+			color: white;
+			border: 2px solid white;
+			border-radius: 15px;
+			display: flex;
+			align-items: center;
+			justify-items: center;
+			gap: 8px;
+			font-weight: bold;
+		}
+
+		.set-area-btn:hover {
+			background-color: #333;
+		}
+
+		.set-options {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 5px;
+			margin-bottom: 8px;
+		}
+
+		.render-card {
+			margin-left: 8px;
+		}
+
+		/* .header-menu {
 
 			} */
-		</style>
-		<style id="fonts-style"></style>
-	</head>
-	<body>
-		<div class="header" id="header">
-			<select id="file-menu" class="file-menu header-menu">
-				<option value="default">File</option>
-				<option value="export-png">Export .png</option>
-				<option value="export-jpg">Export .jpg</option>
-				<option value="save-set">Save to file</option>
-				<option value="open-set">Open set file</option>
-			</select>
-			<select id="cards-menu" class="cards-menu header-menu">
-				<option value="default">Cards</option>
-				<option value="new-card">New card +</option>
-			</select>
-			<select id="insert-menu" class="insert-menu header-menu">
-				<option value="default">Insert</option>
-			</select>
+	</style>
+	<style id="fonts-style"></style>
+</head>
+
+<body>
+	<div class="header" id="header">
+		<select id="file-menu" class="file-menu header-menu">
+			<option value="default">File</option>
+			<option value="export-png">Export .png</option>
+			<option value="export-jpg">Export .jpg</option>
+			<option value="save-set">Save to file</option>
+			<option value="open-set">Open set file</option>
+		</select>
+		<select id="cards-menu" class="cards-menu header-menu">
+			<option value="default">Cards</option>
+			<option value="new-card">New card +</option>
+		</select>
+		<select id="insert-menu" class="insert-menu header-menu">
+			<option value="default">Insert</option>
+		</select>
+	</div>
+	<div class="page-container">
+		<div class="card">
+			<img src="img/blank-card.png" id="card-img" class="card-img">
+			<img src="img/noart.png" id="art" class="art-default">
+			<div class="card-fields" id="card-fields"></div>
 		</div>
-		<div class="page-container">
-			<div class="card">
-				<img src="img/blank-card.png" id="card-img" class="card-img">
-				<img src="img/noart.png" id="art" class="art-default">
-				<div class="card-fields" id="card-fields"></div>
-			</div>
-			<div class="card-options" id="card-options">
-				<div id="fields" class="fields"></div>
-				<div class="file-inputs">
-					<span id="fileinputlabel">Upload your art!</span>
-					<input type="file" onchange="artHandler(event)" id="fileinput">
-				</div>	
-			</div>
-			<div class="set-area">
-				<div class="set-options">
-					<div class="set-area-btn" id="add-btn"><img src="img/add.png" class="set-area-icon">New Card</div>
-				</div>
-				<div class="set-container" id="cards"></div>
+		<div class="card-options" id="card-options">
+			<div id="fields" class="fields"></div>
+			<div class="file-inputs">
+				<span id="fileinputlabel">Upload your art!</span>
+				<input type="file" onchange="artHandler(event)" id="fileinput">
 			</div>
 		</div>
-		<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-		<script src="parse.js"></script>
-		<!-- <script src="zip.js" type="modulef"></script> -->
-		<script id="template-script"></script>
-		<script>
-			const template = window.location.href.split("?template=")[1];
-			if (template) {
-				parseStyle(template);
-			} else {
-				document.getElementById('fields').innerText = "No template loaded, go back to template select";
-			}
-		</script>
-	</body>
+		<div class="set-area">
+			<div class="set-options">
+				<div class="set-area-btn" id="add-btn"><img src="img/add.png" class="set-area-icon">New Card</div>
+			</div>
+			<div class="set-container" id="cards"></div>
+		</div>
+	</div>
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<script src="parse.js"></script>
+	<!-- <script src="zip.js" type="modulef"></script> -->
+	<script id="template-script"></script>
+	<script>
+		const template = window.location.href.split("?template=")[1];
+		if (template) {
+			parseStyle(template);
+		} else {
+			document.getElementById('fields').innerText = "No template loaded, go back to template select";
+		}
+	</script>
+</body>
+
 </html>

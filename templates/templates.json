@@ -1,7 +1,8 @@
 {
-    "templates": [
-        "cg-chaos-galaxy",
-        "mtg-magic-main",
-        "ygo-yugioh"
-    ]
+	"templates": [
+		"cg-chaos-galaxy",
+		"mtg-magic-main",
+		"ygo-yugioh",
+		"sup-supreme-alchemy"
+	]
 }

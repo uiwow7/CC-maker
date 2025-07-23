@@ -1,0 +1,180 @@
+{
+	"name": "Supreme Alchemy",
+	"desc": "Card template for Supreme Alchemy TCG",
+	"card": {
+		"height": "692",
+		"width": "489",
+		"name_field": "name"
+	},
+	"consts": {
+		"pt-size": "22",
+		"check-spell": "<if .type = spell then",
+		"check-creature": "<if .type = creature then",
+		"cost-has": "<if .cost $",
+		"cost-draconis": "!cost-has d then Draconis !end!cost-has f then Draconis !end!cost-has fire then Draconis !end",
+		"cost-verdarok": "!cost-has v then Verdarok !end!cost-has e then Verdarok !end!cost-has earth then Verdarok !end",
+		"cost-undamari": "!cost-has u then Undamari !end!cost-has w then Undamari !end!cost-has water then Undamari !end",
+		"cost-zephyrite": "!cost-has z then Zephyrite !end!cost-has a then Zephyrite !end!cost-has air then Zephyrite !end",
+		"cost-generic": "<if .cost = nil then generic end>",
+		"end": "end>",
+		"realm-default": "!auto-{type}-realm",
+		"auto-Spell-realm": "spell",
+		"auto-Environment-realm": "generic",
+		"auto-Creature-realm": "!cost-draconis!cost-verdarok!cost-undamari!cost-zephyrite"
+	},
+	"types": {
+		"Creature": {
+			"fields": [
+				"name",
+				"name-size",
+				"text",
+				"text-size",
+				"cost",
+				"atk",
+				"def",
+				"realm",
+				"tier"
+			],
+			"url": "/cards/creature.png"
+		},
+		"Spell": {
+			"fields": [
+				"name",
+				"name-size",
+				"text",
+				"text-size",
+				"realm"
+			],
+			"url": "cards/spell.png"
+		},
+		"Barrier": {
+			"fields": [
+				"name",
+				"name-size",
+				"text",
+				"text-size"
+			],
+			"url": "cards/barrier.png"
+		},
+		"Environment": {
+			"fields": [
+				"name",
+				"name-size",
+				"text",
+				"text-size",
+				"realm"
+			],
+			"url": "cards/environment.png"
+		}
+	},
+	"fields": {
+		"name": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "Card Name",
+			"position": "77;43;40;335",
+			"font": {
+				"size": "{name-size}",
+				"family": "arial",
+				"color": "black"
+			}
+		},
+		"name-size": {
+			"type": "infix",
+			"view": "input",
+			"loc": "fields",
+			"input_type": "number",
+			"label": "Name font size",
+			"default": "35"
+		},
+		"text": {
+			"type": "card",
+			"view": "card-sym",
+			"loc": "card-fields",
+			"default": "Card text",
+			"symbol-font": "symbol/text",
+			"keep-text": true,
+			"position": "410;43;144;398",
+			"font": {
+				"size": "{text-size}",
+				"family": "arial",
+				"color": "black"
+			}
+		},
+		"text-size": {
+			"type": "infix",
+			"view": "input",
+			"loc": "fields",
+			"input_type": "number",
+			"label": "Rules text font size",
+			"default": "24"
+		},
+		"cost": {
+			"type": "card",
+			"view": "card-sym",
+			"symbol-font": "symbol/cost",
+			"position": "384;43;20;400",
+			"default": "DDDDDDDD",
+			"loc": "card-fields"
+		},
+		"atk": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "0",
+			"position": "567;385;25;65",
+			"font": {
+				"size": "!pt-size",
+				"family": "arial",
+				"color": "black"
+			}
+		},
+		"def": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "0",
+			"position": "592;385;25;65",
+			"font": {
+				"size": "!pt-size",
+				"family": "arial",
+				"color": "black"
+			}
+		},
+		"realm": {
+			"type": "overlay",
+			"view": "dropdown",
+			"loc": "fields",
+			"default": "!realm-default",
+			"label": "Card Realm",
+			"options": [
+				"Draconis",
+				"Verdarok",
+				"Zephyrite",
+				"Undamari",
+				"Spell",
+				"Generic"
+			],
+			"img": {
+				"loc": "card-fields"
+			},
+			"url": "border/[realm].png"
+		},
+		"tier": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "1",
+			"position": "75;400;40;40",
+			"font": {
+				"family": "arial",
+				"size": "40"
+			}
+		}
+	},
+	"art": {
+		"position": "129.2;42;250;402",
+		"class": "art"
+	}
+}
