@@ -203,7 +203,7 @@ function downloadImage(file_extension) {
 
 function writeImageFile(fn) {
 	const card_ele = document.getElementsByClassName("card")[0];
-	html2canvas(card_ele, { width: style_json.card.width * 2, height: style_json.card.height, useCORS: true, taintTest: false, allowTaint: false }).then(function (canvas) {
+	html2canvas(card_ele, { width: style_json.card.width, height: style_json.card.height, useCORS: true, taintTest: false, allowTaint: false }).then(function (canvas) {
 		var width = canvas.width;
 		var height = canvas.height;
 		var context = canvas.getContext('2d');
