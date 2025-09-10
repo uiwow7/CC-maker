@@ -14,7 +14,15 @@
 	},
 	"automation": {
 		"insert": {
-			"Sindian text": "<span style=\"color: #bca001;\">Sindian text</span><span>$$$$</span>"
+			"sindian text": "<span class=\"shaimus sindian-rules-text\">sindian text</span><span> ",
+			"gaios text": "<span class=\"shaimus gaios-rules-text\">gaios text</span><span> ",
+			"baro text": "<span class=\"shaimus baro-rules-text\">baro text</span><span> ",
+			"palicium text": "<span class=\"shaimus palicium-rules-text\">palicium text</span><span> ",
+			"sheos text": "<span class=\"shaimus sheos-rules-text\">sheos text</span><span> ",
+			"rokah text": "<span class=\"shaimus rokah-rules-text\">rokah text</span><span> ",
+			"sindell text": "<span class=\"shaimus sindell-rules-text\">sindell text</span><span> ",
+			"teklar text": "<span class=\"shaimus teklar-rules-text\">teklar text</span><span> ",
+			"no-planet text": "<span class=\"shaimus no-planet-rules-text\">no-planet text</span><span> "
 		}
 	},
 	"consts": {
