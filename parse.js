@@ -275,7 +275,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			if (field_default == null) field_default = filter(field.default);
 			field_element = document.createElement('span');
 			field_element.contentEditable = "true";
-			field_element.innerText = field_default;
+			field_element.innerHTML = field_default;
 			field_element.onfocus = function () {
 				active_field = field_name;
 				document.getElementById("insert-menu").disabled = false;
@@ -283,8 +283,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			field_element.onblur = function () {
 
 				// document.getElementById("insert-menu").disabled = true;
-				localStorage.setItem(field_name, field_element.innerText);
-				current_card[field_name] = document.getElementById(field_name).innerText;
+				localStorage.setItem(field_name, field_element.innerHTML);
+				current_card[field_name] = document.getElementById(field_name).innerHTML;
 				renderCard(style_json, template_path);
 			}
 			break;
