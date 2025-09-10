@@ -1,284 +1,324 @@
 {
-    "name": "Chaos Galaxy",
-    "desc": "Custom card template for Chaos Galaxy",
-    "preview-card": "cg-preview.jpg",
-    "stylesheet": "style.css",
-    "fonts": [
-        "Shaimus.otf",
-        "Shaimus-Light.otf"
-    ],
-    "card": {
-        "height": "562.5",
-        "width": "412.5",
-        "name_field": "name",
-        "display_fields": [
-            "planet"
-        ]
-    },
-    "automation": {
-        "insert": {
-            "Sindian text": "<span style=\"color: #bca001;\">Sindian text</span><span>$$$$</span>"
-        }
-    },
-    "consts": {
-        "check-acti": "<if .type = activator then",
-        "check-comb": "<if .type = combiner then",
-        "end": "end>",
-        "acti-class": "card-text-!acti-lines",
-        "type-class": "card-text-{type}",
-        "acti": "acti-{lines}",
-        "light": "shaimus-light",
-        "bold": "shaimus",
-        "ridrare-acti": "!ridrare-path!acti.png",
-        "ridrare-norm": "!ridrare-path{type}.png",
-        "ridrare-path": "ridrare/",
-        "ridrare": "!check-acti !ridrare-acti else !ridrare-norm !end",
-        "type-pos": "!{type}-pos",
-        "Activator-pos": "!act-pos-{lines}",
-        "act-pos-1": "440;43;!textbox-size",
-        "act-pos-2": "450;48;!textbox-size",
-        "act-pos-3": "465;45;!textbox-size",
-        "Resource-pos": "!standard-pos",
-        "Permanent-Resource-pos": "!standard-pos",
-        "Attachment-pos": "!standard-pos",
-        "Creature-pos": "464;40;58;415",
-        "Planet-pos": "!standard-pos",
-        "Combiner-pos": "478;40;!textbox-size",
-        "standard-pos": "425;40;!textbox-size",
-        "textbox-size": "96;332",
-        "art-pos": "!{type}-art",
-        "Combiner-art": "!combiner-{side}-art",
-        "check-left": "<if .side = left then",
-        "check-right": "<if .side = right then",
-        "combiner-left-art":  "166;44;304;341",
-        "combiner-right-art": "166;28;304;341",
-        "Creature-art": "158;42;296;327",
-        "Resource-art": "!standard-art",
-        "standard-art": "84;43;325;327",
-        "Permanent-Resource-art": "!standard-art",
-        "Attachment-art": "81;41;331;329",
-        "Planet-art": "82;42;329;329",
-        "Activator-art": "79;40;333;333",
-        "star-left": "<if .stars = 10 then 25 else 35 end>",
-        "star-width": "<if .stars = 10 then 360 else none end>"
-    },
-    "types": {
-        "Combiner": {
-            "fields": [
-                "name",
-                "other-half",
-                "planet",
-                "text",
-                "power",
-                "health",
-                "side",
-                "ridrare"
-            ],
-            "url": "/combiners/{planet}{side}.jpg"
-        },
-        "Creature": {
-            "fields": [
-                "name",
-                "planet",
-                "text",
-                "power",
-                "health",
-                "ridrare",
-                "stars"
-            ],
-            "url": "/creatures/{planet}card.jpg"
-        },
-        "Resource": {
-            "fields": [
-                "name",
-                "text",
-                "ridrare"
-            ],
-            "url": "/other-cards/resource.jpg"
-        },
-        "Attachment": {
-            "fields": [
-                "name",
-                "text",
-                "ridrare"
-            ],
-            "url": "/other-cards/attachment.jpg"
-        },
-        "Planet": {
-            "fields": [
-                "name",
-                "text",
-                "ridrare"
-            ],
-            "url": "/other-cards/planet.jpg"
-        },
-        "Permanent-Resource": {
-            "fields": [
-                "name",
-                "text",
-                "ridrare"
-            ],
-            "url": "/other-cards/permanent resource.jpg"
-        },
-        "Activator": {
-            "fields": [
-                "name",
-                "text",
-                "condition",
-                "lines",
-                "ridrare"
-            ],
-            "url": "/activators/!acti.jpg"
-        }
-    },
-    "fields": {
-        "ridrare": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "label": "Ridiculously rare overlay",
-            "url": "!ridrare",
-            "default": false,
-            "img": {
-                "class": "ridrare-overlay",
-                "loc": "card-fields"
-            }
-        },
-        "stars": {
-            "type": "overlay",
-            "view": "input",
-            "input_type": "number",
-            "loc": "fields", 
-            "label": "Creature's stars",
-            "default": "1",
-            "url": "/stars/[stars]star.png",
-            "img": {
-                "loc": "card-fields",
-                "width": "!star-width",
-                "height": "35",
-                "top": "120",
-                "left": "!star-left"
-            }
-        },
-        "name": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "default": "Card Name",
-            "position": "31;43;30;410",
-            "font": {
-                "size": "27",
-                "family": "!light",
-                "color": "black"
-            }
-        },
-        "other-half": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "default": "+ Other Half",
-            "position": "124;43;28;410",
-            "font": {
-                "family": "!light",
-                "size": "23",
-                "color": "black"
-            }
-        },
-        "planet": {
-            "type": "infix",
-            "view": "dropdown",
-            "loc": "fields",
-            "label": "Planet",
-            "options": [
-                "baro",
-                "gaios",
-                "palicium",
-                "sindell",
-                "teklar",
-                "rokah",
-                "sindian",
-                "sheos",
-                "no-planet"
-            ],
-            "default": "baro"
-        },
-        "text": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "!type-pos",
-            "position": "!type-pos",
-            "font": {
-                "family": "!light",
-                "size": "15",
-                "line-height": "14",
-                "color": "black"
-            },
-            "default": "Card text goes here"
-        },
-        "power": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "default": "999",
-            "style": {
-                "text-align": "center"
-            },
-            "font": {
-                "family": "!bold",
-                "size": "28",
-                "color": "black"
-            },
-            "position": "78;108;40;48"
-        },
-        "health": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "default": "999",
-            "style": {
-                "text-align": "center"
-            },
-            "font": {
-                "family": "!bold",
-                "size": "28",
-                "color": "black"
-            },
-            "position": "78;324.5;40;48"
-        },
-        "side": {
-            "type": "infix",
-            "view": "dropdown",
-            "loc": "fields",
-            "label": "Combiner's half",
-            "options": [
-                "left",
-                "right"
-            ],
-            "default": "left"
-        },
-        "condition": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "!bold acti-text-{lines}-lines",
-            "default": "Your condition..."
-        },
-        "lines": {
-            "type": "infix",
-            "view": "dropdown",
-            "loc": "fields",
-            "label": "Number of lines in condition",
-            "options": [
-                "1",
-                "2",
-                "3"
-            ],
-            "default": "1"
-        }
-    },
-    "art": {
-        "position": "!art-pos",
-        "class": "!art-pos"
-    }
+	"name": "Chaos Galaxy",
+	"desc": "Custom card template for Chaos Galaxy",
+	"preview-card": "cg-preview.jpg",
+	"stylesheet": "style.css",
+	"fonts": [
+		"Shaimus.otf",
+		"Shaimus-Light.otf"
+	],
+	"card": {
+		"height": "562.5",
+		"width": "412.5",
+		"name_field": "name"
+	},
+	"automation": {
+		"insert": {
+			"Sindian text": "<span style=\"color: #bca001;\">Sindian text</span><span>$$$$</span>"
+		}
+	},
+	"consts": {
+		"check-acti": "<if .type = activator then",
+		"check-comb": "<if .type = combiner then",
+		"end": "end>",
+		"acti-class": "card-text-!acti-lines",
+		"type-class": "card-text-{type}",
+		"acti": "acti-{lines}",
+		"light": "shaimus-light",
+		"bold": "shaimus",
+		"ridrare-acti": "!ridrare-path!acti.png",
+		"ridrare-norm": "!ridrare-path{type}.png",
+		"ridrare-path": "ridrare/",
+		"ridrare": "!check-acti !ridrare-acti else !ridrare-norm !end",
+		"type-pos": "!{type}-pos",
+		"Activator-pos": "!act-pos-{lines}",
+		"act-pos-1": "440;43;!textbox-size",
+		"act-pos-2": "450;48;!textbox-size",
+		"act-pos-3": "465;45;!textbox-size",
+		"Resource-pos": "!standard-pos",
+		"Permanent-Resource-pos": "!standard-pos",
+		"Attachment-pos": "!standard-pos",
+		"Creature-pos": "464;40;58;415",
+		"Planet-pos": "!standard-pos",
+		"Combiner-pos": "478;40;!textbox-size",
+		"standard-pos": "425;40;!textbox-size",
+		"textbox-size": "96;332",
+		"art-pos": "!{type}-art",
+		"Combiner-art": "!combiner-{side}-art",
+		"check-left": "<if .side = left then",
+		"check-right": "<if .side = right then",
+		"combiner-Left-art": "166;44;304;341",
+		"combiner-Right-art": "166;28;304;341",
+		"Creature-art": "158;42;296;327",
+		"Resource-art": "!standard-art",
+		"standard-art": "84;43;325;327",
+		"Permanent-Resource-art": "!standard-art",
+		"Attachment-art": "81;41;331;329",
+		"Planet-art": "82;42;329;329",
+		"Activator-art": "79;40;333;333",
+		"star-left": "<if .stars = 10 then 25 else 35 end>",
+		"star-width": "<if .stars = 10 then 360 else none end>",
+		"attachment-img": "<if .moon = true then moon else attachment end>",
+		"font-diff": "{name-font-size} - 27",
+		"name-top": "<eval (({name-font-size} - 27) * -1) + 31 end>"
+	},
+	"types": {
+		"Combiner": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"other-half",
+				"planet",
+				"text",
+				"power",
+				"health",
+				"side",
+				"ridrare"
+			],
+			"url": "/combiners/{planet}{side}.jpg"
+		},
+		"Creature": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"planet",
+				"text",
+				"power",
+				"health",
+				"ridrare",
+				"stars"
+			],
+			"url": "/creatures/{planet}card.jpg"
+		},
+		"Resource": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"text",
+				"ridrare"
+			],
+			"url": "/other-cards/resource.jpg"
+		},
+		"Attachment": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"text",
+				"ridrare",
+				"moon"
+			],
+			"url": "/other-cards/!attachment-img.jpg"
+		},
+		"Planet": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"text",
+				"ridrare"
+			],
+			"url": "/other-cards/planet.jpg"
+		},
+		"Permanent-Resource": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"text",
+				"ridrare"
+			],
+			"url": "/other-cards/permanent resource.jpg"
+		},
+		"Activator": {
+			"fields": [
+				"name",
+				"name-font-size",
+				"name-font-squish",
+				"text",
+				"condition",
+				"lines",
+				"ridrare"
+			],
+			"url": "/activators/!acti.jpg"
+		}
+	},
+	"fields": {
+		"ridrare": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"label": "Ridiculously rare overlay",
+			"url": "!ridrare",
+			"default": false,
+			"img": {
+				"class": "ridrare-overlay",
+				"loc": "card-fields"
+			}
+		},
+		"stars": {
+			"type": "overlay",
+			"view": "input",
+			"input_type": "number",
+			"loc": "fields",
+			"label": "Creature's stars",
+			"default": "1",
+			"url": "/stars/[stars]star.png",
+			"img": {
+				"loc": "card-fields",
+				"width": "!star-width",
+				"height": "35",
+				"top": "120",
+				"left": "!star-left"
+			}
+		},
+		"name": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "Card Name",
+			"position": "!name-top;43;30;410",
+			"font": {
+				"size": "{name-font-size}",
+				"family": "!light",
+				"color": "black"
+			},
+			"style": {
+				"letter-spacing": "-[name-font-squish]px"
+			}
+		},
+		"other-half": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "+ Other Half",
+			"position": "124;43;28;410",
+			"font": {
+				"family": "!light",
+				"size": "23",
+				"color": "black"
+			}
+		},
+		"planet": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"label": "Planet",
+			"options": [
+				"baro",
+				"gaios",
+				"palicium",
+				"sindell",
+				"teklar",
+				"rokah",
+				"sindian",
+				"sheos",
+				"no-planet"
+			],
+			"default": "baro"
+		},
+		"text": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "!type-pos",
+			"position": "!type-pos",
+			"font": {
+				"family": "!light",
+				"size": "15",
+				"line-height": "14",
+				"color": "black"
+			},
+			"default": "Card text goes here"
+		},
+		"power": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "999",
+			"style": {
+				"text-align": "center"
+			},
+			"font": {
+				"family": "!bold",
+				"size": "28",
+				"color": "black"
+			},
+			"position": "78;108;40;48"
+		},
+		"health": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"default": "999",
+			"style": {
+				"text-align": "center"
+			},
+			"font": {
+				"family": "!bold",
+				"size": "28",
+				"color": "black"
+			},
+			"position": "78;324.5;40;48"
+		},
+		"side": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"label": "Combiner's half",
+			"options": [
+				"left",
+				"right"
+			],
+			"default": "left"
+		},
+		"condition": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "!bold acti-text-{lines}-lines",
+			"default": "Your condition..."
+		},
+		"lines": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"label": "Number of lines in condition",
+			"options": [
+				"1",
+				"2",
+				"3"
+			],
+			"default": "1"
+		},
+		"moon": {
+			"type": "infix",
+			"view": "checkbox",
+			"loc": "fields",
+			"label": "Is this a moon?"
+		},
+		"name-font-size": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "number",
+			"loc": "fields",
+			"label": "Name font size (default: 27)",
+			"default": "27"
+		},
+		"name-font-squish": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "number",
+			"loc": "fields",
+			"label": "Name font squish (default: 0)",
+			"default": "0"
+		}
+	},
+	"art": {
+		"position": "!art-pos",
+		"class": "!art-pos"
+	}
 }

@@ -191,7 +191,7 @@ async function updateFields(fields, template_path, card = false) {
 		}
 	}
 
-	document.getElementById("card-img").src = template_path + filter(style_json.types[val].url, true);
+	document.getElementById("card-img").src = template_path + filter(style_json.types[val].url);
 	document.getElementById("art").src = card.art;
 
 	makeSet();
@@ -254,6 +254,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 				field_element.appendChild(d_opt_ele);
 			}
 			for (let opt of field.options) {
+				opt = opt[0].toUpperCase() + opt.substring(1);
 				if (opt == field_default) {
 					continue;
 				}
@@ -743,6 +744,11 @@ function parseExpr(expr, style_json) {
 					handle_token = "if";
 					info.if_depth = 1;
 					tracker = []
+				} else if (token == "eval") {
+					handle_token = "eval";
+				}
+				else {
+					tracker.push(token);
 				}
 				break;
 			case "if":
@@ -760,10 +766,21 @@ function parseExpr(expr, style_json) {
 					tracker.push(token);
 				}
 				break;
+			case "eval":
+				if (token == "end") {
+					out += parseEval(tracker);
+				} else {
+					tracker.push(filter(token));
+				}
+				break;
 		}
 	}
 	console.log("result", out);
 	return out;
+}
+
+function parseEval(tokens) {
+	return eval(liststr(tokens));
 }
 
 function parseIf(tokens) {
@@ -851,4 +868,13 @@ function parseCond(cond) {
 	} else {
 		return false;
 	}
+}
+
+function liststr(l) {
+	let s = "";
+	for (const i of l) {
+		s += i;
+	}
+
+	return s;
 }
