@@ -101,7 +101,8 @@
 		"Activator-bg": "#543465",
 		"1-cond-pos": "420;34.5;15;377.7",
 		"2-cond-pos": "420;34.5;30;377.7",
-		"3-cond-pos": "420;34.5;45;377.7"
+		"3-cond-pos": "420;34.5;45;377.7",
+		"type-text-content": "<if .type = creature then [stars] else {type} end>"
 	},
 	"types": {
 		"Combiner": {
@@ -503,14 +504,14 @@
 			"view": "card-text",
 			"loc": "card-fields",
 			"position": "<if .type = activator then 521 else 520 end>;35;10;20",
-			"text": "{type}",
+			"text": "!type-text-content",
 			"font": {
 				"family": "!light",
 				"size": "13"
 			},
 			"style": {
 				"letter-spacing": "-1px",
-				"color": "<if activatorattachmentcombinerplanet $ .type then white else black end>"
+				"color": "<if activatorattachmentcombinerplanetcreature $ .type then white else black end>"
 			}
 		}
 	},
