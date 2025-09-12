@@ -43,8 +43,6 @@ async function parsePath(template_path) {
 			style_json = data;
 		}).catch(error => console.error('Error:', error)); // load the style json
 
-	console.log(style_json);
-
 	await fetch(`${template_path}/${style_json.stylesheet}`)
 		.then(response => response.text())
 		.then(data => {
@@ -185,6 +183,12 @@ async function updateFields(fields, template_path, card = false) {
 		art_ele.style.width = filter(pos_split[3]) + "px";
 	}
 
+	if (style_json.art.style) {
+		for (const style_option in style_json.art.style) {
+			art_ele.style[style_option] = filter(style_json.art.style[style_option]);
+		}
+	}
+
 	for (const over in style_json.art.override) {
 		if (over == type) {
 			art_ele.className = filter(style_json.art.override[over].class, true);
@@ -244,7 +248,8 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 	let field_default;
 	switch (field.view) {
 		case "dropdown":
-			field_default = filter(localStorage.getItem(field_name));
+			field_default = localStorage.getItem(field_name);
+			if (field_default == null) field_default = filter(field.default);
 			field_default = field_default[0].toUpperCase() + field_default.substring(1);
 			field_element = document.createElement('select');
 			if (field_default) {
@@ -317,7 +322,6 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 				field_element_modify = document.createElement('span');
 				field_element_modify.contentEditable = "true";
 				field_element_modify.id = field_name + "-modify";
-				console.log(aa, p_aa);
 				field_element.innerHTML = aa;
 				field_element_modify.innerText = filter(field.default);
 				field_element_modify.style.top = "0px";
@@ -351,43 +355,79 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			field_element = document.createElement('input');
 			field_element.type = field.input_type ? field.input_type : "text";
 			field_default = localStorage.getItem(field_name);
+
 			if (field_default) {
 				field_element.value = field_default;
 			} else {
 				field_element.value = field.default ? filter(field.default) : "";
 			}
+
+			console.log(field_default, localStorage.getItem(field_name))
+
 			field_element.onchange = function () {
 				localStorage.setItem(field_name, document.getElementById(field_name).value);
 				current_card[field_name] = document.getElementById(field_name).value;
 				renderCard(style_json, template_path);
 				// updateFields(fields, template_path);
 			}
+
+			console.log(field_default, localStorage.getItem(field_name))
+
 			break;
 		case "none":
 			field_element = document.createElement("div");
 			field_element.style.display = "none";
 			break;
 	}
+
+	console.log(field_default, localStorage.getItem(field_name))
+
 	if (field.default != null && localStorage.getItem(field_name) == null) {
 		localStorage.setItem(field_name, filter(field.default))
 
 	}
+
 	if (field.type == "overlay" && (localStorage.getItem(field_name) == "true" || field.view != "checkbox")) {
+
+		console.log(field_default, localStorage.getItem(field_name))
+
 		overlay = document.createElement('img');
 		overlay.className = field.img.class;
+
+		if (field.img.style) {
+			for (const style_option in field.img.style) {
+				// console.log(localStorage.getItem("name-backing"))
+				console.log(localStorage.getItem("name-backing"), filter("!name-backing-default"))
+				// console.log(field_default, localStorage.getItem(field_name))
+				overlay.style[style_option] = filter(field.img.style[style_option]);
+			}
+		}
+
 		overlay.src = template_path + filter(field.url, true);
-		// console.log(filter(field.url), "filtered");
+
 		overlay.style.position = "absolute";
-		overlay.style.top = field.img.top ? filter(field.img.top) + "px" : "0";
-		overlay.style.left = field.img.left ? filter(field.img.left) + "px" : "0";
-		overlay.style.width = field.img.width ? filter(field.img.width) + "px" : "100%";
-		overlay.style.height = field.img.height ? filter(field.img.height) + "px" : "100%";
+
+		if (field.img.position) {
+			const overlay_position_filtered = filter(field.img.position);
+			let overlay_pos_split = overlay_position_filtered.split(";");
+			overlay.style.top = filter(overlay_pos_split[0]) + "px";
+			overlay.style.left = filter(overlay_pos_split[1]) + "px";
+			overlay.style.height = filter(overlay_pos_split[2]) + "px";
+			overlay.style.width = filter(overlay_pos_split[3]) + "px";
+		} else {
+			overlay.style.top = field.img.top ? filter(field.img.top) + "px" : "0";
+			overlay.style.left = field.img.left ? filter(field.img.left) + "px" : "0";
+			overlay.style.width = field.img.width ? filter(field.img.width) + "px" : "100%";
+			overlay.style.height = field.img.height ? filter(field.img.height) + "px" : "100%";
+		}
 		overlay.style.pointerEvents = "none";
+
 		if (field.img.style) {
 			for (const style_option in field.img.style) {
 				overlay.style[style_option] = filter(field.img.style[style_option]);
 			}
 		}
+
 		document.getElementById(field.img.loc).appendChild(overlay);
 	}
 	if (field.label) {
@@ -578,7 +618,6 @@ function parseConst(str, consts_) {
 }
 
 function filter(str, use_fields = true, lowercase = true) {
-	// alert("filtering");
 	if (!str) {
 		return "";
 	}
@@ -621,11 +660,12 @@ function filter(str, use_fields = true, lowercase = true) {
 			}
 
 			for (const field of style_json.types[type].fields) {
-				let val = document.getElementById(field);
-				if (val == null) {
+				let val;
+				let field_element = document.getElementById(field);
+				if (field_element == null) {
 					val = style_json.fields[field].default;
 				} else {
-					val = val.value;
+					val = field_element.value;
 				}
 				if (newstr.includes(`{${field}}`) || newstr.includes(`[${field}]`)) {
 					newstr = newstr.replaceAll(`{${field}}`, val);
@@ -731,7 +771,6 @@ function openSetHandler(event) {
 
 
 function parseExpr(expr, style_json) {
-	console.log("parsing", expr);
 	const tokens = expr.split(" ");
 	let tracker = [];
 	let info = {};
@@ -756,7 +795,6 @@ function parseExpr(expr, style_json) {
 				if (token == "end") {
 					info.if_depth -= 1;
 					if (info.if_depth == 0) {
-						console.log(tracker);
 						out += parseIf(tracker, style_json);
 						info.if_depth = 0;
 						tracker = [];
@@ -775,7 +813,7 @@ function parseExpr(expr, style_json) {
 				break;
 		}
 	}
-	console.log("result", out);
+
 	return out;
 }
 
@@ -784,7 +822,7 @@ function parseEval(tokens) {
 }
 
 function parseIf(tokens) {
-	// tokens should look like [COND, then, VAL, else, VAL]
+	// tokens should look like [COND, then, VAL, else, VAL2]
 	let condition = [];
 	let val1 = "";
 	let val2 = "";
@@ -808,8 +846,6 @@ function parseIf(tokens) {
 			val2 = filterToken(token);
 		}
 	}
-
-	console.log(`if ${condition} then ${val1} else ${val2} end`);
 
 	if (cond_bool) {
 		return val1;

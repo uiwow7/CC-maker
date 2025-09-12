@@ -4,8 +4,8 @@
 	"preview-card": "cg-preview.jpg",
 	"stylesheet": "style.css",
 	"fonts": [
-		"Shaimus.otf",
-		"Shaimus-Light.otf"
+		"Shaimus.ttf",
+		"Shaimus-Light.ttf"
 	],
 	"card": {
 		"height": "562.5",
@@ -40,42 +40,103 @@
 		"ridrare": "!check-acti !ridrare-acti else !ridrare-norm !end",
 		"type-pos": "!{type}-pos",
 		"Activator-pos": "!act-pos-{lines}",
-		"act-pos-1": "440;43;!textbox-size",
-		"act-pos-2": "450;48;!textbox-size",
-		"act-pos-3": "465;45;!textbox-size",
+		"act-pos-1": "446;33;76;342",
+		"act-pos-2": "454.5;36;65;336.5",
+		"act-pos-3": "470;35;51;338",
 		"Resource-pos": "!standard-pos",
 		"Permanent-Resource-pos": "!standard-pos",
 		"Attachment-pos": "!standard-pos",
-		"Creature-pos": "464;40;58;415",
+		"Creature-pos": "462;37;56;334",
 		"Planet-pos": "!standard-pos",
-		"Combiner-pos": "478;40;!textbox-size",
+		"Combiner-pos": "476;36;42;336",
 		"standard-pos": "425;40;!textbox-size",
 		"textbox-size": "96;332",
 		"art-pos": "!{type}-art",
 		"Combiner-art": "!combiner-{side}-art",
 		"check-left": "<if .side = left then",
 		"check-right": "<if .side = right then",
-		"combiner-Left-art": "166;44;304;341",
+		"combiner-Left-art": "166;42;304;339",
 		"combiner-Right-art": "166;28;304;341",
-		"Creature-art": "158;42;296;327",
+		"Creature-art": "156;40;297;328",
 		"Resource-art": "!standard-art",
-		"standard-art": "84;43;325;327",
+		"standard-art": "81;41;325;327",
 		"Permanent-Resource-art": "!standard-art",
-		"Attachment-art": "81;41;331;329",
-		"Planet-art": "82;42;329;329",
-		"Activator-art": "79;40;333;333",
+		"Attachment-art": "!standard-art",
+		"Planet-art": "!standard-art",
+		"Activator-art": "!standard-art",
 		"star-left": "<if .stars = 10 then 25 else 35 end>",
 		"star-width": "<if .stars = 10 then 360 else none end>",
 		"attachment-img": "<if .moon = true then moon else attachment end>",
 		"font-diff": "{name-font-size} - 27",
-		"name-top": "<eval (({name-font-size} - 27) * -1) + 31 end>"
+		"name-top": "<eval (({name-font-size} - 27) * -1) + 34 end>",
+		"name-backing-default": "!{type}-backing",
+		"Creature-backing": "![planet]-backing",
+		"Combiner-backing": "![planet]-backing",
+		"Baro-backing": "#D0C0B1",
+		"baro-backing": "#D0C0B1",
+		"Gaios-backing": "#D5F0AD",
+		"No-planet-backing": "#C8C8C8",
+		"Palicium-backing": "#D3E8FB",
+		"Rokah-backing": "#FEEFD0",
+		"Sheos-backing": "#FBE5C0",
+		"Sindell-backing": "#D7BFF1",
+		"Sindian-backing": "#E0E49A",
+		"Teklar-backing": "#D7FFF7",
+		"Resource-backing": "#ECD9AF",
+		"Permanent-Resource-backing": "#ECD9AF",
+		"Attachment-backing": "#E7BBBC",
+		"Activator-backing": "#C1B2C7",
+		"Planet-backing": "#CACACA",
+		"name-backing-left": "38",
+		"name-backing-width": "333",
+		"name-backing-top": "33",
+		"name-backing-height": "37",
+		"old-name-backing-left": "!{type}-name-backing-left",
+		"old-name-backing-width": "!{type}-name-backing-width",
+		"old-name-backing-top": "!{type}-name-backing-top",
+		"old-name-backing-height": "!{type}-name-backing-height",
+		"Combiner-name-backing-left": "38",
+		"Combiner-name-backing-top": "33",
+		"Combiner-name-backing-height": "37",
+		"Combiner-name-backing-width": "333",
+		"Creature-name-backing-left": "37",
+		"Creature-name-backing-top": "30",
+		"Creature-name-backing-height": "37",
+		"Creature-name-backing-width": "335",
+		"Resource-name-backing-left": "37",
+		"Resource-name-backing-top": "30",
+		"Resource-name-backing-height": "37",
+		"Resource-name-backing-width": "335",
+		"Permanent-Resource-name-backing-left": "37",
+		"Permanent-Resource-name-backing-top": "30",
+		"Permanent-Resource-name-backing-height": "37",
+		"Permanent-Resource-name-backing-width": "335",
+		"Attachment-name-backing-left": "34",
+		"Attachment-name-backing-top": "27.5",
+		"Attachment-name-backing-height": "38",
+		"Attachment-name-backing-width": "337",
+		"type-bg": "!{type}-bg",
+		"Creature-bg": "#346792",
+		"Resource-bg": "#BA9425",
+		"Permanent-Resource-bg": "#BA9425",
+		"Attachment-bg": "#AE1915",
+		"Planet-bg": "#3E3838",
+		"Combiner-bg": "#2A6A45",
+		"Activator-bg": "#543465",
+		"1-cond-pos": "420;34.5;15;377.7",
+		"2-cond-pos": "420;34.5;30;377.7",
+		"3-cond-pos": "420;34.5;45;377.7"
 	},
 	"types": {
 		"Combiner": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"other-half",
 				"planet",
 				"text",
@@ -84,13 +145,17 @@
 				"side",
 				"ridrare"
 			],
-			"url": "/combiners/{planet}{side}.jpg"
+			"url": "border.jpg"
 		},
 		"Creature": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"planet",
 				"text",
 				"power",
@@ -98,60 +163,80 @@
 				"ridrare",
 				"stars"
 			],
-			"url": "/creatures/{planet}card.jpg"
+			"url": "border.jpg"
 		},
 		"Resource": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"text",
 				"ridrare"
 			],
-			"url": "/other-cards/resource.jpg"
+			"url": "border.jpg"
 		},
 		"Attachment": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"text",
 				"ridrare",
 				"moon"
 			],
-			"url": "/other-cards/!attachment-img.jpg"
+			"url": "border.jpg"
 		},
 		"Planet": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"text",
 				"ridrare"
 			],
-			"url": "/other-cards/planet.jpg"
+			"url": "border.jpg"
 		},
 		"Permanent-Resource": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"text",
 				"ridrare"
 			],
-			"url": "/other-cards/permanent resource.jpg"
+			"url": "border.jpg"
 		},
 		"Activator": {
 			"fields": [
 				"name",
+				"name-backing",
 				"name-font-size",
 				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
 				"text",
 				"condition",
 				"lines",
 				"ridrare"
 			],
-			"url": "/activators/!acti.jpg"
+			"url": "border.jpg"
 		}
 	},
 	"fields": {
@@ -163,7 +248,6 @@
 			"url": "!ridrare",
 			"default": false,
 			"img": {
-				"class": "ridrare-overlay",
 				"loc": "card-fields"
 			}
 		},
@@ -195,23 +279,35 @@
 				"color": "black"
 			},
 			"style": {
-				"letter-spacing": "-[name-font-squish]px"
+				"letter-spacing": "-<eval [name-font-squish] + 1 end>px"
 			}
 		},
 		"other-half": {
-			"type": "card",
+			"type": "overlay",
 			"view": "card-text",
 			"loc": "card-fields",
 			"default": "+ Other Half",
 			"position": "124;43;28;410",
+			"url": "name_backing_sizing.png",
 			"font": {
 				"family": "!light",
 				"size": "23",
-				"color": "black"
+				"color": "black",
+				"letter-spacing": "-1px"
+			},
+			"img": {
+				"position": "126;38;28;333",
+				"style": {
+					"background-color": "[name-backing]",
+					"border": "2px solid {border-color}",
+					"border-radius": "1px",
+					"z-index": "-1"
+				},
+				"loc": "card-fields"
 			}
 		},
 		"planet": {
-			"type": "infix",
+			"type": "overlay",
 			"view": "dropdown",
 			"loc": "fields",
 			"label": "Planet",
@@ -226,7 +322,19 @@
 				"sheos",
 				"no-planet"
 			],
-			"default": "baro"
+			"default": "baro",
+			"url": "creatures/[planet]planet.png",
+			"img": {
+				"top": "82",
+				"left": "162",
+				"width": "85",
+				"height": "28",
+				"loc": "card-fields",
+				"style": {
+					"border": "2px solid {border-color}",
+					"border-radius": "1px"
+				}
+			}
 		},
 		"text": {
 			"type": "card",
@@ -240,37 +348,72 @@
 				"line-height": "14",
 				"color": "black"
 			},
+			"style": {
+				"border": "2px solid {border-color}",
+				"border-radius": "1px",
+				"background-color": "[name-backing]",
+				"font-stretch": "50%",
+				"letter-spacing": "-1px"
+			},
 			"default": "Card text goes here"
 		},
 		"power": {
-			"type": "card",
+			"type": "overlay",
 			"view": "card-text",
 			"loc": "card-fields",
 			"default": "999",
 			"style": {
-				"text-align": "center"
+				"text-align": "center",
+				"letter-spacing": "-2px"
 			},
 			"font": {
 				"family": "!bold",
 				"size": "28",
 				"color": "black"
 			},
-			"position": "78;108;40;48"
+			"position": "76;108;40;48",
+			"url": "power.png",
+			"img": {
+				"left": "40",
+				"top": "78",
+				"height": "34",
+				"width": "117",
+				"loc": "card-fields",
+				"style": {
+					"border": "2px solid {border-color}",
+					"border-radius": "1px",
+					"background-color": "[name-backing]"
+				}
+			}
 		},
 		"health": {
-			"type": "card",
+			"type": "overlay",
 			"view": "card-text",
 			"loc": "card-fields",
 			"default": "999",
 			"style": {
-				"text-align": "center"
+				"text-align": "center",
+				"letter-spacing": "-2px"
 			},
 			"font": {
 				"family": "!bold",
 				"size": "28",
 				"color": "black"
 			},
-			"position": "78;324.5;40;48"
+			"position": "76;322.5;40;48",
+			"url": "health.png",
+			"img": {
+				"left": "253",
+				"top": "78",
+				"height": "34",
+				"width": "117",
+				"loc": "card-fields",
+				"style": {
+					"border": "2px solid {border-color}",
+					"border-radius": "1px",
+					"background-color": "[name-backing]"
+				}
+			}
 		},
 		"side": {
 			"type": "infix",
@@ -287,8 +430,15 @@
 			"type": "card",
 			"view": "card-text",
 			"loc": "card-fields",
-			"class": "!bold acti-text-{lines}-lines",
-			"default": "Your condition..."
+			"class": "!bold acti-text-{lines}-lines acti-text",
+			"default": "Your condition...",
+			"position": "!{lines}-cond-pos",
+			"style": {
+				"border": "2px solid #c1b3c8",
+				"letter-spacing": "-0.5px",
+				"transform": "scaleX(0.9)",
+				"transform-origin": "left"
+			}
 		},
 		"lines": {
 			"type": "infix",
@@ -306,7 +456,8 @@
 			"type": "infix",
 			"view": "checkbox",
 			"loc": "fields",
-			"label": "Is this a moon?"
+			"label": "Is this a moon?",
+			"default": "true"
 		},
 		"name-font-size": {
 			"type": "infix",
@@ -323,10 +474,69 @@
 			"loc": "fields",
 			"label": "Name font squish (default: 0)",
 			"default": "0"
+		},
+		"border-color": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "color",
+			"loc": "fields",
+			"label": "Border Color",
+			"default": "black"
+		},
+		"border": {
+			"type": "overlay",
+			"view": "none",
+			"loc": "fields",
+			"url": "name_backing_sizing.png",
+			"img": {
+				"loc": "card-fields",
+				"position": "21;26;516;356",
+				"style": {
+					"border": "3px solid {border-color}",
+					"border-radius": "2px",
+					"background-color": "!type-bg",
+					"z-index": "-2",
+					"position": "absolute"
+				}
+			}
+		},
+		"name-backing": {
+			"type": "overlay",
+			"view": "input",
+			"input_type": "color",
+			"label": "Background Color",
+			"default": "!name-backing-default",
+			"loc": "fields",
+			"url": "name_backing_sizing.png",
+			"img": {
+				"loc": "card-fields",
+				"width": "!name-backing-width",
+				"height": "!name-backing-height",
+				"top": "!name-backing-top",
+				"left": "!name-backing-left",
+				"style": {
+					"background": "[name-backing]",
+					"z-index": "-1",
+					"border": "2px solid {border-color}",
+					"border-radius": "1px"
+				}
+			}
+		},
+		"type-text": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"position": "400;50;10;20"
 		}
 	},
 	"art": {
 		"position": "!art-pos",
-		"class": "!art-pos"
+		"class": "!art-pos",
+		"style": {
+			"border": "solid {border-color}",
+			"border-width": "3px",
+			"border-radius": "2px",
+			"z-index": "3"
+		}
 	}
 }

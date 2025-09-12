@@ -1,90 +1,92 @@
 html {
-    height: 100%;
-    width: 100%;
-    background-image: url('templates/cg-chaos-galaxy.template/bglight.png');
-    overflow-y: hidden;
-    background-size: 100%;
+	height: 100%;
+	width: 100%;
+	background-image: url('templates/cg-chaos-galaxy.template/bglight.png');
+	overflow-y: hidden;
+	background-size: 100%;
 }
 
 .shaimus {
-    font-family: 'Shaimus';
-    color:#000000;
+	font-family: 'Shaimus';
+	color: #000000;
 }
+
 .shaimus-light {
-    font-family: 'Shaimus-Light';
-    letter-spacing: 0px;
-    transform: scaleX(0.8);
-    transform-origin: left;
-    color:#000000;
+	font-family: 'Shaimus-Light';
+	transform-origin: left;
+	color: #000000;
+}
+
+.text {
+	letter-spacing: -1px;
 }
 
 .rokah-rules-text {
-    color: #dc8f67;
+	color: #dc8f67;
 }
 
 .sheos-rules-text {
-    color: #af1916;
+	color: #af1916;
 }
 
 .baro-rules-text {
-    color: #423e3b;
+	color: #423e3b;
 }
 
 .sindell-rules-text {
-    color: #3b235a;
+	color: #3b235a;
 }
 
 .sindian-rules-text {
-    color: #bca001;
+	color: #bca001;
 }
 
 .teklar-rules-text {
-    color: #01a799;
+	color: #01a799;
 }
 
 .gaios-rules-text {
-    color: #497603;
+	color: #497603;
 }
 
 .palicium-rules-text {
-    color: #0b4d6f;
+	color: #0b4d6f;
 }
 
 .no-planet-rules-text {
-    color: #555555;
+	color: #555555;
 }
 
 .black-rules-text {
-    color: #000000;
+	color: #000000;
 }
 
 .acti-text-2-lines {
-    top: 415.5px;
-    position: absolute;
-    font-size: 14px;
-    color: #c1b3c8;
-    left: 45.5px;
-    line-height: 14px;
+	top: 421.5px;
+	left: 39.5px;
 }
 
 .acti-text-1-lines {
-    top: 419px;
-    position: absolute;
-    font-size: 14px;
-    color: #c1b3c8;
-    left: 45.5px;
-    line-height: 14px;
+	top: 424px;
+	left: 39.5px;
 }
 
 .acti-text-3-lines {
-    top: 417.5px;
-    position: absolute;
-    font-size: 14px;
-    color: #c1b3c8;
-    left: 45.5px;
-    line-height: 14px;
+	top: 422.5px;
+	left: 39.5px;
+}
+
+.acti-text {
+	font-size: 14px;
+	color: #c1b3c8;
+	line-height: 14px;
+	position: absolute;
+}
+
+.backing {
+	background-color: red;
 }
 
 .invis {
-    display: none;
+	display: none;
 }
