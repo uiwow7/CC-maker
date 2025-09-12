@@ -288,7 +288,7 @@
 			"loc": "card-fields",
 			"default": "+ Other Half",
 			"position": "124;43;28;410",
-			"url": "name_backing_sizing.png",
+			"url": "nothing.png",
 			"font": {
 				"family": "!light",
 				"size": "23",
@@ -487,7 +487,7 @@
 			"type": "overlay",
 			"view": "none",
 			"loc": "fields",
-			"url": "name_backing_sizing.png",
+			"url": "nothing.png",
 			"img": {
 				"loc": "card-fields",
 				"position": "21;26;516;356",
@@ -507,7 +507,7 @@
 			"label": "Background Color",
 			"default": "!name-backing-default",
 			"loc": "fields",
-			"url": "name_backing_sizing.png",
+			"url": "nothing.png",
 			"img": {
 				"loc": "card-fields",
 				"width": "!name-backing-width",
