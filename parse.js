@@ -462,7 +462,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 		}
 	}
 	if (field.text) {
-		field_element.innerText = filter((field.text, style_json), true, false);
+		field_element.innerText = filter(field.text);
 	}
 	document.getElementById(field.loc).appendChild(field_element);
 	return;
