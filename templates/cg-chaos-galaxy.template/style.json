@@ -371,7 +371,7 @@
 				"border-radius": "1px",
 				"background-color": "[name-backing]",
 				"font-stretch": "50%",
-				"letter-spacing": "-1px"
+				"letter-spacing": "-0.8px"
 			},
 			"default": "Card text goes here"
 		},
