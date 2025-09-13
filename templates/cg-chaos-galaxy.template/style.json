@@ -134,6 +134,7 @@
 				"health",
 				"ridrare",
 				"ridrare-color",
+				"artist-credit",
 				"stars"
 			],
 			"url": "border.jpg"
@@ -158,7 +159,8 @@
 				"health",
 				"side",
 				"ridrare",
-				"ridrare-color"
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		},
@@ -176,7 +178,8 @@
 				"rarity",
 				"text",
 				"ridrare",
-				"ridrare-color"
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		},
@@ -195,6 +198,7 @@
 				"text",
 				"ridrare",
 				"ridrare-color",
+				"artist-credit",
 				"moon"
 			],
 			"url": "border.jpg"
@@ -213,7 +217,8 @@
 				"rarity",
 				"text",
 				"ridrare",
-				"ridrare-color"
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		},
@@ -231,7 +236,8 @@
 				"rarity",
 				"text",
 				"ridrare",
-				"ridrare-color"
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		},
@@ -251,7 +257,8 @@
 				"condition",
 				"lines",
 				"ridrare",
-				"ridrare-color"
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		}
@@ -562,7 +569,7 @@
 			"type": "card",
 			"view": "<if .set-code =  then none else card-text end>",
 			"loc": "card-fields",
-			"position": "520;29;20;356",
+			"position": "520;29;19;350",
 			"text": "[set-code]: <eval i = set.cards.indexOf(current_card) + 1; \"0\".repeat(Math.abs(3 - i.toString().length)) + i; end>",
 			"font": {
 				"family": "!light",
@@ -570,10 +577,11 @@
 				"size": "13"
 			},
 			"style": {
-				"text-align": "center",
+				"text-align": "right",
 				"letter-spacing": "-1px",
 				"background-color": "!type-bg",
-				"z-index": "-1"
+				"z-index": "-1",
+				"padding-left": "0px"
 			}
 		},
 		"type-text": {
@@ -608,15 +616,15 @@
 			"type": "card",
 			"view": "card-text",
 			"loc": "card-fields",
-			"position": "520;225;10;150",
-			"text": "{rarity}",
+			"position": "520;29;20;356",
+			"text": "{rarity} <if .artist-credit =  then  else by end> <if .artist-credit =  then  else {artist-credit} end>",
 			"font": {
 				"family": "!light",
 				"color": "!bottom-font-color",
 				"size": "13"
 			},
 			"style": {
-				"text-align": "right",
+				"text-align": "center",
 				"letter-spacing": "-1px"
 			}
 		},
@@ -641,6 +649,13 @@
 			"input_type": "text",
 			"loc": "set-fields",
 			"label": "Set code"
+		},
+		"artist-credit": {
+			"type": "infix",
+			"view": "input",
+			"loc": "fields",
+			"label": "Artist credit",
+			"default": ""
 		}
 	},
 	"art": {
