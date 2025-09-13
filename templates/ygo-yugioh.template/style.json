@@ -1,350 +1,350 @@
 {
-    "name": "Yu-Gi-Oh!",
-    "desc": "Custom card template for Yu-Gi-Oh!",
-    "preview-card": "ygo-preview.jpg",
-    "stylesheet": "style.css",
-    "fonts": [
-        "ygo-name.ttf",
-        "ygo-type.ttf",
-        "ygo-text.ttf",
-        "ygo-link.otf"
-    ],
-    "consts": {
-        "check-xyz": "<if .supertype = xyz then",
-        "check-link": "<if .supertype = link then",
-        "check-ritual": "<if .supertype = ritual then",
-        "check-synchro": "<if .supertype = synchro then",
-        "check-fusion": "<if .supertype = fusion then",
-        "check-extra": "!check-xyz /Effect !end!check-ritual /Effect !end!check-link /Effect !end!check-synchro /Effect !end!check-fusion /Effect !end",
-        "end": "end>",
-        "arrow": "!check-link block else none !end"
-    },
-    "card": {
-        "height": "562.5",
-        "width": "412.5",
-        "top": "8",
-        "name_field": "name"
-    },
-    "types": {
-        "Monster": {
-            "fields": [
-                "name",
-                "attribute",
-                "supertype",
-                "monster-type",
-                "type",
-                "text",
-                "atk",
-                "def",
-                "level",
-                "arrow1",
-                "arrow2",
-                "arrow3",
-                "arrow4",
-                "arrow5",
-                "arrow6",
-                "arrow7",
-                "arrow8"
-            ],
-            "url": "/cards/monsters/{supertype}.png"
-        }
-    },
-    "fields": {
-        "name": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "card-name",
-            "default": "Card Name",
-            "font": {
-                "family": "ygo-name",
-                "size": "40"
-            },
-            "style": {
-                "color": "!check-xyz white !end !check-link white !end"
-            },
-            "position": "18;30;40;320"
-        },
-        "type": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "monster-type",
-            "default": "[Effect]",
-            "font": {
-                "family": "ygo-type",
-                "size": "13",
-                "weight": "bold"
-            },
-            "position": "422;30;16;355",
-            "text": "[{monster-type}/{supertype}!check-extra]"
-        },
-        "text": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "card-text",
-            "default": "Card/Flavor text goes here",
-            "font": {
-                "size": "13",
-                "family": "ygo-text",
-                "line-height": "12"
-            },
-            "position": "438;30;78;355"
-        },
-        "supertype": {
-            "type": "infix",
-            "view": "dropdown",
-            "loc": "fields",
-            "options": [
-                "Effect",
-                "Normal",
-                "Fusion",
-                "Ritual",
-                "Synchro",
-                "Xyz",
-                "Link"
-            ],
-            "default": "Effect",
-            "label": true
-        },
-        "monster-type": {
-            "type": "infix",
-            "view": "dropdown",
-            "loc": "fields",
-            "options": [
-                "Warrior",
-                "Beast",
-                "Pyro",
-                "Aqua",
-                "Psychic",
-                "Thunder",
-                "Winged Beast"
-            ],
-            "default": "Warrior",
-            "label": true
-        },
-        "atk": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "atk",
-            "default": "0",
-            "font": {
-                "family": "ygo-type",
-                "size": "16"
-            },
-            "position": "510;260;16;50"
-        },
-        "def": {
-            "type": "card",
-            "view": "card-text",
-            "loc": "card-fields",
-            "class": "def",
-            "default": "0",
-            "font": {
-                "family": "ygo-type",
-                "size": "16"
-            },
-            "style": {
-                "left": "!check-link 365px else 345px !end",
-                "font-size": "!check-link 20px else 16px !end",
-                "font-family": "!check-link ygo-link else ygo-type !end"
-            },
-            "position": "510;345;16;50"
-        },
-        "attribute": {
-            "type": "overlay",
-            "view": "dropdown",
-            "loc": "fields",
-            "options": [
-                "DARK",
-                "LIGHT",
-                "WATER",
-                "EARTH",
-                "FIRE",
-                "WIND",
-                "DIVINE"
-            ],
-            "default": "DARK",
-            "url": "/attributes/[attribute]_attribute.webp",
-            "img": {
-                "loc": "card-fields",
-                "class": "attribute"
-            },
-            "label": true
-        },
-        "level": {
-            "type": "overlay",
-            "view": "dropdown",
-            "loc": "fields",
-            "options": [
-                "None",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12"
-            ],
-            "style": {
-                "display": "!check-xyz none !end !check-link none !end"
-            },
-            "default": "None",
-            "url": "/levels/lv[level].png",
-            "img": {
-                "loc": "card-fields",
-                "class": "levels",
-                "style": {
-                    "display": "!check-xyz none !end !check-link none !end"
-                }
-            },
-            "label": true
-        },
-        "arrow1": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-1",
-            "url": "arrows/arrow-up-left.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-1-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow2": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-2",
-            "url": "arrows/arrow-up.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-2-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow3": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-3",
-            "url": "arrows/arrow-up-right.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-3-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow4": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-4",
-            "url": "arrows/arrow-right.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-4-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow5": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-5",
-            "url": "arrows/arrow-down-right.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-5-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow6": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-6",
-            "url": "arrows/arrow-down.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-6-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow7": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-7",
-            "url": "arrows/arrow-down-left.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-7-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        },
-        "arrow8": {
-            "type": "overlay",
-            "view": "checkbox",
-            "loc": "fields",
-            "class": "arrow-8",
-            "url": "arrows/arrow-left.png",
-            "img": {
-                "loc": "card-fields",
-                "class": "arrow-8-card",
-                "style": {
-                    "display": "!arrow"
-                }
-            },
-            "style": {
-                "display": "!arrow"
-            }
-        }
-   },
-    "art": {
-        "class": "art-{type}"
-    }
+	"name": "Yu-Gi-Oh!",
+	"desc": "Custom card template for Yu-Gi-Oh!",
+	"preview-card": "ygo-preview.jpg",
+	"stylesheet": "style.css",
+	"fonts": [
+		"ygo-name.ttf",
+		"ygo-type.ttf",
+		"ygo-text.ttf",
+		"ygo-link.otf"
+	],
+	"consts": {
+		"check-xyz": "<if .supertype = xyz then",
+		"check-link": "<if .supertype = link then",
+		"check-ritual": "<if .supertype = ritual then",
+		"check-synchro": "<if .supertype = synchro then",
+		"check-fusion": "<if .supertype = fusion then",
+		"check-extra": "!check-xyz /Effect !end!check-ritual /Effect !end!check-link /Effect !end!check-synchro /Effect !end!check-fusion /Effect !end",
+		"end": "end>",
+		"arrow": "!check-link block else none !end"
+	},
+	"card": {
+		"height": "562.5",
+		"width": "412.5",
+		"top": "8",
+		"name_field": "name"
+	},
+	"types": {
+		"Monster": {
+			"fields": [
+				"name",
+				"attribute",
+				"supertype",
+				"monster-type",
+				"type",
+				"text",
+				"atk",
+				"def",
+				"level",
+				"arrow1",
+				"arrow2",
+				"arrow3",
+				"arrow4",
+				"arrow5",
+				"arrow6",
+				"arrow7",
+				"arrow8"
+			],
+			"url": "/cards/monsters/{supertype}.png"
+		}
+	},
+	"fields": {
+		"name": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "card-name",
+			"default": "Card Name",
+			"font": {
+				"family": "ygo-name",
+				"size": "40"
+			},
+			"style": {
+				"color": "!check-xyz white !end !check-link white !end"
+			},
+			"position": "18;30;40;320"
+		},
+		"type": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "monster-type",
+			"default": "[Effect]",
+			"font": {
+				"family": "ygo-type",
+				"size": "13",
+				"weight": "bold"
+			},
+			"position": "422;30;16;355",
+			"text": "[{monster-type}/{supertype}!check-extra]"
+		},
+		"text": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "card-text",
+			"default": "Card/Flavor text goes here",
+			"font": {
+				"size": "13",
+				"family": "ygo-text",
+				"line-height": "12"
+			},
+			"position": "438;30;78;355"
+		},
+		"supertype": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"options": [
+				"Effect",
+				"Normal",
+				"Fusion",
+				"Ritual",
+				"Synchro",
+				"Xyz",
+				"Link"
+			],
+			"default": "Effect",
+			"label": true
+		},
+		"monster-type": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"options": [
+				"Warrior",
+				"Beast",
+				"Pyro",
+				"Aqua",
+				"Psychic",
+				"Thunder",
+				"Winged Beast"
+			],
+			"default": "Warrior",
+			"label": true
+		},
+		"atk": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "atk",
+			"default": "0",
+			"font": {
+				"family": "ygo-type",
+				"size": "16"
+			},
+			"position": "510;260;16;50"
+		},
+		"def": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"class": "def",
+			"default": "0",
+			"font": {
+				"family": "ygo-type",
+				"size": "16"
+			},
+			"style": {
+				"left": "!check-link 365px else 345px !end",
+				"font-size": "!check-link 20px else 16px !end",
+				"font-family": "!check-link ygo-link else ygo-type !end"
+			},
+			"position": "510;345;16;50"
+		},
+		"attribute": {
+			"type": "overlay",
+			"view": "dropdown",
+			"loc": "fields",
+			"options": [
+				"DARK",
+				"LIGHT",
+				"WATER",
+				"EARTH",
+				"FIRE",
+				"WIND",
+				"DIVINE"
+			],
+			"default": "DARK",
+			"url": "/attributes/[attribute]_attribute.webp",
+			"img": {
+				"loc": "card-fields",
+				"class": "attribute"
+			},
+			"label": true
+		},
+		"level": {
+			"type": "overlay",
+			"view": "dropdown",
+			"loc": "fields",
+			"options": [
+				"None",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12"
+			],
+			"style": {
+				"display": "!check-xyz none !end !check-link none !end"
+			},
+			"default": "None",
+			"url": "/levels/lv[level].png",
+			"img": {
+				"loc": "card-fields",
+				"class": "levels",
+				"style": {
+					"display": "!check-xyz none !end !check-link none !end"
+				}
+			},
+			"label": true
+		},
+		"arrow1": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-1",
+			"url": "arrows/arrow-up-left.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-1-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow2": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-2",
+			"url": "arrows/arrow-up.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-2-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow3": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-3",
+			"url": "arrows/arrow-up-right.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-3-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow4": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-4",
+			"url": "arrows/arrow-right.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-4-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow5": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-5",
+			"url": "arrows/arrow-down-right.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-5-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow6": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-6",
+			"url": "arrows/arrow-down.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-6-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow7": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-7",
+			"url": "arrows/arrow-down-left.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-7-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		},
+		"arrow8": {
+			"type": "overlay",
+			"view": "checkbox",
+			"loc": "fields",
+			"class": "arrow-8",
+			"url": "arrows/arrow-left.png",
+			"img": {
+				"loc": "card-fields",
+				"class": "arrow-8-card",
+				"style": {
+					"display": "!arrow"
+				}
+			},
+			"style": {
+				"display": "!arrow"
+			}
+		}
+	},
+	"art": {
+		"class": "art-{type}"
+	}
 }

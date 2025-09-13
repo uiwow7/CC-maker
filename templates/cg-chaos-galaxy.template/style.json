@@ -10,7 +10,10 @@
 	"card": {
 		"height": "562.5",
 		"width": "412.5",
-		"name_field": "name"
+		"name_field": "name",
+		"display_fields": [
+			"type"
+		]
 	},
 	"automation": {
 		"insert": {
@@ -34,10 +37,6 @@
 		"acti": "acti-{lines}",
 		"light": "shaimus-light",
 		"bold": "shaimus",
-		"ridrare-acti": "!ridrare-path!acti.png",
-		"ridrare-norm": "!ridrare-path{type}.png",
-		"ridrare-path": "ridrare/",
-		"ridrare": "!check-acti !ridrare-acti else !ridrare-norm !end",
 		"type-pos": "!{type}-pos",
 		"Activator-pos": "!act-pos-{lines}",
 		"act-pos-1": "442;35;76;338",
@@ -102,28 +101,13 @@
 		"1-cond-pos": "420;34.5;15;377.7",
 		"2-cond-pos": "420;34.5;30;377.7",
 		"3-cond-pos": "420;34.5;45;377.7",
-		"type-text-content": "<if .type = creature then [stars] else {type} end>"
+		"type-text-content": "<if .type = creature then {stars} else {type} end>",
+		"bottom-font-color": "<if activatorattachmentcombinerplanetcreature $ .type then white else black end>",
+		"ridrare-h": "<eval hexToHsl(\"[ridrare-color]\")[0] end>",
+		"ridrare-s": "<eval hexToHsl(\"[ridrare-color]\")[1] end>",
+		"ridrare-v": "<eval hexToHsl(\"[ridrare-color]\")[2] end>"
 	},
 	"types": {
-		"Combiner": {
-			"fields": [
-				"name",
-				"name-backing",
-				"name-font-size",
-				"name-font-squish",
-				"border-color",
-				"border",
-				"type-text",
-				"other-half",
-				"planet",
-				"text",
-				"power",
-				"health",
-				"side",
-				"ridrare"
-			],
-			"url": "border.jpg"
-		},
 		"Creature": {
 			"fields": [
 				"name",
@@ -133,12 +117,37 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"planet",
 				"text",
 				"power",
 				"health",
 				"ridrare",
+				"ridrare-color",
 				"stars"
+			],
+			"url": "border.jpg"
+		},
+		"Combiner": {
+			"fields": [
+				"name",
+				"name-backing",
+				"name-font-size",
+				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
+				"rarity-text",
+				"rarity",
+				"other-half",
+				"planet",
+				"text",
+				"power",
+				"health",
+				"side",
+				"ridrare",
+				"ridrare-color"
 			],
 			"url": "border.jpg"
 		},
@@ -151,8 +160,11 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"text",
-				"ridrare"
+				"ridrare",
+				"ridrare-color"
 			],
 			"url": "border.jpg"
 		},
@@ -165,8 +177,11 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"text",
 				"ridrare",
+				"ridrare-color",
 				"moon"
 			],
 			"url": "border.jpg"
@@ -180,8 +195,11 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"text",
-				"ridrare"
+				"ridrare",
+				"ridrare-color"
 			],
 			"url": "border.jpg"
 		},
@@ -194,8 +212,11 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"text",
-				"ridrare"
+				"ridrare",
+				"ridrare-color"
 			],
 			"url": "border.jpg"
 		},
@@ -208,10 +229,13 @@
 				"border-color",
 				"border",
 				"type-text",
+				"rarity-text",
+				"rarity",
 				"text",
 				"condition",
 				"lines",
-				"ridrare"
+				"ridrare",
+				"ridrare-color"
 			],
 			"url": "border.jpg"
 		}
@@ -219,14 +243,29 @@
 	"fields": {
 		"ridrare": {
 			"type": "overlay",
-			"view": "checkbox",
+			"view": "none",
 			"loc": "fields",
 			"label": "Ridiculously rare overlay",
-			"url": "!ridrare",
+			"url": "ridiculrare.png",
 			"default": false,
 			"img": {
-				"loc": "card-fields"
+				"loc": "card-fields",
+				"style": {
+					"display": "<if .rarity $ ridiculously then block else none end>",
+					"z-index": "-3",
+					"position": "absolute",
+					"filter": "hue-rotate(!ridrare-hdeg) saturate(!ridrare-s) brightness(!ridrare-v)"
+				},
+				"position": "23;29;516;356"
 			}
+		},
+		"ridrare-color": {
+			"type": "infix",
+			"view": "<if .rarity $ ridiculously then input else none end>",
+			"input_type": "color",
+			"loc": "fields",
+			"label": "Ridrare color",
+			"default": "#000000"
 		},
 		"stars": {
 			"type": "overlay",
@@ -256,7 +295,9 @@
 				"color": "black"
 			},
 			"style": {
-				"letter-spacing": "-<eval [name-font-squish] + 1 end>px"
+				"letter-spacing": "-1px",
+				"transform": "scaleX(<eval 1 - ([name-font-squish] / 10) end>)",
+				"transform-origin": "left"
 			}
 		},
 		"other-half": {
@@ -414,7 +455,8 @@
 				"border": "2px solid #c1b3c8",
 				"letter-spacing": "-0.5px",
 				"transform": "scaleX(0.9)",
-				"transform-origin": "left"
+				"transform-origin": "left",
+				"background-color": "#543465"
 			}
 		},
 		"lines": {
@@ -453,7 +495,7 @@
 			"default": "0"
 		},
 		"border-color": {
-			"type": "infix",
+			"type": "card",
 			"view": "input",
 			"input_type": "color",
 			"loc": "fields",
@@ -472,7 +514,7 @@
 					"border": "3px solid {border-color}",
 					"border-radius": "2px",
 					"background-color": "!type-bg",
-					"z-index": "-2",
+					"z-index": "-10",
 					"position": "absolute"
 				}
 			}
@@ -494,7 +536,7 @@
 				"style": {
 					"background": "[name-backing]",
 					"z-index": "-1",
-					"border": "2px solid {border-color}",
+					"border": "2px solid [border-color]",
 					"border-radius": "1px"
 				}
 			}
@@ -503,7 +545,7 @@
 			"type": "card",
 			"view": "card-text",
 			"loc": "card-fields",
-			"position": "<if .type = activator then 521 else 520 end>;35;10;20",
+			"position": "520;35;10;100",
 			"text": "!type-text-content",
 			"font": {
 				"family": "!light",
@@ -511,7 +553,36 @@
 			},
 			"style": {
 				"letter-spacing": "-1px",
-				"color": "<if activatorattachmentcombinerplanetcreature $ .type then white else black end>"
+				"color": "!bottom-font-color"
+			}
+		},
+		"rarity": {
+			"type": "infix",
+			"view": "dropdown",
+			"loc": "fields",
+			"options": [
+				"Common",
+				"Rare",
+				"Really Rare",
+				"Ridiculously Rare"
+			],
+			"default": "Common",
+			"label": "Rarity"
+		},
+		"rarity-text": {
+			"type": "card",
+			"view": "card-text",
+			"loc": "card-fields",
+			"position": "520;225;10;150",
+			"text": "{rarity}",
+			"font": {
+				"family": "!light",
+				"color": "!bottom-font-color",
+				"size": "13"
+			},
+			"style": {
+				"text-align": "right",
+				"letter-spacing": "-1px"
 			}
 		}
 	},
