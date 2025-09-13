@@ -560,10 +560,10 @@
 		},
 		"set-text": {
 			"type": "card",
-			"view": "<if .set-code = null then none else card-text end>",
+			"view": "<if .set-code =  then none else card-text end>",
 			"loc": "card-fields",
 			"position": "520;29;20;356",
-			"text": "[set-code]: <eval i = set.cards.indexOf(current_card); \"0\".repeat(Math.abs(3 - i.toString().length)) + i; end>",
+			"text": "[set-code]: <eval i = set.cards.indexOf(current_card) + 1; \"0\".repeat(Math.abs(3 - i.toString().length)) + i; end>",
 			"font": {
 				"family": "!light",
 				"color": "!bottom-font-color",
