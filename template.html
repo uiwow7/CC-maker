@@ -13,10 +13,12 @@
 			font-family: 'Helvetica';
 		}
 
-		.fields {
+		.fields,
+		.set-fields {
 			display: grid;
 			grid-template-columns: 2fr 1fr;
 			width: 80%;
+			gap: 5px;
 		}
 
 		.templates-container {
@@ -114,6 +116,8 @@
 			padding: 3px;
 			font-weight: bold;
 			display: flex;
+			cursor: pointer;
+			transition: 0.2s;
 		}
 
 		.card-container:hover {
@@ -167,6 +171,8 @@
 			justify-items: center;
 			gap: 8px;
 			font-weight: bold;
+			cursor: pointer;
+			transition: 0.2s;
 		}
 
 		.set-area-btn:hover {
@@ -187,6 +193,46 @@
 		/* .header-menu {
 
 			} */
+
+		#modal-container {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			padding-top: 70px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0, 0, 0);
+			background-color: rgba(0, 0, 0, 0.4);
+			z-index: 10000;
+		}
+
+		#modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+			border-radius: 10px;
+			border: solid #777 3px;
+		}
+
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			margin-left: 30px;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
 	</style>
 	<style id="fonts-style"></style>
 </head>
@@ -224,8 +270,16 @@
 		<div class="set-area">
 			<div class="set-options">
 				<div class="set-area-btn" id="add-btn"><img src="img/add.png" class="set-area-icon">New Card</div>
+				<div class="set-area-btn" id="info-btn"><img src="img/star.png" class="set-area-icon">Set Info</div>
 			</div>
 			<div class="set-container" id="cards"></div>
+		</div>
+	</div>
+	<div id="modal-container">
+		<div id="modal-content" class="popout">
+			<span class="close"
+				onclick="document.getElementById('modal-container').style.display = 'none';">&times;</span>
+			<div id="set-fields" class="set-fields"></div>
 		</div>
 	</div>
 	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>

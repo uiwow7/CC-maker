@@ -28,6 +28,13 @@
 			"no-planet text": "<span class=\"shaimus no-planet-rules-text\">no-planet text</span><span> "
 		}
 	},
+	"set": {
+		"fields": [
+			"set-name",
+			"set-code"
+		],
+		"name_field": "set-name"
+	},
 	"consts": {
 		"check-acti": "<if .type = activator then",
 		"check-comb": "<if .type = combiner then",
@@ -45,18 +52,18 @@
 		"Resource-pos": "!standard-pos",
 		"Permanent-Resource-pos": "!standard-pos",
 		"Attachment-pos": "!standard-pos",
-		"Creature-pos": "462;37;56;334",
+		"Creature-pos": "<eval 520 - (15 * {textbox-lines}) end>;37;<eval 15 * {textbox-lines} end>;334",
 		"Planet-pos": "!standard-pos",
-		"Combiner-pos": "476;36;42;336",
+		"Combiner-pos": "<eval 520 - (15 * {textbox-lines}) end>;37;<eval 15 * {textbox-lines} end>;334",
 		"standard-pos": "425;40;!textbox-size",
 		"textbox-size": "96;332",
 		"art-pos": "!{type}-art",
 		"Combiner-art": "!combiner-{side}-art",
 		"check-left": "<if .side = left then",
 		"check-right": "<if .side = right then",
-		"combiner-Left-art": "166;42;304;339",
-		"combiner-Right-art": "166;28;304;341",
-		"Creature-art": "156;40;297;328",
+		"combiner-Left-art": "166;42;<eval 345 - 15 * {textbox-lines} end>;339",
+		"combiner-Right-art": "166;28;<eval 345 - 15 * {textbox-lines} end>;341",
+		"Creature-art": "156;40;<eval 357 - 15 * {textbox-lines} end>;328",
 		"Resource-art": "!standard-art",
 		"standard-art": "81;41;325;327",
 		"Permanent-Resource-art": "!standard-art",
@@ -118,8 +125,10 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"planet",
+				"textbox-lines",
 				"text",
 				"power",
 				"health",
@@ -139,10 +148,12 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"other-half",
 				"planet",
 				"text",
+				"textbox-lines",
 				"power",
 				"health",
 				"side",
@@ -161,6 +172,7 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"text",
 				"ridrare",
@@ -178,6 +190,7 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"text",
 				"ridrare",
@@ -196,6 +209,7 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"text",
 				"ridrare",
@@ -213,6 +227,7 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"text",
 				"ridrare",
@@ -230,6 +245,7 @@
 				"border",
 				"type-text",
 				"rarity-text",
+				"set-text",
 				"rarity",
 				"text",
 				"condition",
@@ -356,7 +372,7 @@
 		},
 		"text": {
 			"type": "card",
-			"view": "card-text",
+			"view": "<if .textbox-lines = 0 then none else card-text end>",
 			"loc": "card-fields",
 			"class": "!type-pos",
 			"position": "!type-pos",
@@ -367,8 +383,8 @@
 				"color": "black"
 			},
 			"style": {
-				"border": "2px solid {border-color}",
 				"border-radius": "1px",
+				"border": "2px solid [border-color]",
 				"background-color": "[name-backing]",
 				"font-stretch": "50%",
 				"letter-spacing": "-0.8px"
@@ -461,7 +477,8 @@
 		},
 		"lines": {
 			"type": "infix",
-			"view": "dropdown",
+			"view": "input",
+			"input_type": "number",
 			"loc": "fields",
 			"label": "Number of lines in condition",
 			"options": [
@@ -541,6 +558,24 @@
 				}
 			}
 		},
+		"set-text": {
+			"type": "card",
+			"view": "<if .set-code = null then none else card-text end>",
+			"loc": "card-fields",
+			"position": "520;29;20;356",
+			"text": "[set-code]: <eval i = set.cards.indexOf(current_card); \"0\".repeat(Math.abs(3 - i.toString().length)) + i; end>",
+			"font": {
+				"family": "!light",
+				"color": "!bottom-font-color",
+				"size": "13"
+			},
+			"style": {
+				"text-align": "center",
+				"letter-spacing": "-1px",
+				"background-color": "!type-bg",
+				"z-index": "-1"
+			}
+		},
 		"type-text": {
 			"type": "card",
 			"view": "card-text",
@@ -584,6 +619,28 @@
 				"text-align": "right",
 				"letter-spacing": "-1px"
 			}
+		},
+		"textbox-lines": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "number",
+			"loc": "fields",
+			"default": "4",
+			"label": "Number of lines"
+		},
+		"set-name": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "text",
+			"loc": "set-fields",
+			"label": "Set name"
+		},
+		"set-code": {
+			"type": "infix",
+			"view": "input",
+			"input_type": "text",
+			"loc": "set-fields",
+			"label": "Set code"
 		}
 	},
 	"art": {

@@ -4,6 +4,7 @@ var temp_path;
 var set;
 var current_card;
 var active_field;
+var template_path;
 
 // color utility functions
 
@@ -48,6 +49,63 @@ const hextohsl = hexToHsl;
 
 document.body.setAttribute("spellcheck", false);
 
+document.addEventListener('keydown', function (event) {
+	if (event.ctrlKey && event.key === 's') {
+		event.preventDefault();
+
+		saveSet();
+	}
+});
+
+let modal = document.getElementById("modal-container");
+window.onclick = function (event) {
+	if (event.target == modal) {
+		document.getElementById('modal-container').style.display = 'none';
+	}
+}
+
+document.getElementById("file-menu").addEventListener("change", function () {
+	const option = document.getElementById("file-menu").value;
+
+	if (option.includes("export")) {
+		downloadImage(option.split("-")[1]);
+	} else if (option == "save-set") {
+		saveSet();
+	} else if (option == "open-set") {
+		openSet();
+	}
+
+	document.getElementById("file-menu").value = "default";
+});
+
+document.getElementById("cards-menu").addEventListener("change", function () {
+	const option = document.getElementById("cards-menu").value;
+
+	if (option == "new-card") {
+		set.cards.push(newCard());
+		set.currentCardIndex += 1;
+		loadCard(set.cards[set.currentCardIndex]);
+		makeSet();
+	}
+
+	document.getElementById("cards-menu").value = "default";
+});
+
+document.getElementById("add-btn").addEventListener("click", function () {
+	set.cards.push(newCard());
+	set.currentCardIndex += 1;
+	loadCard(set.cards[set.currentCardIndex]);
+	makeSet();
+});
+
+
+document.getElementById("info-btn").addEventListener("click", openSetInfoModal);
+
+Array.prototype.indexof = Array.prototype.indexOf;
+Number.prototype.tostring = Number.prototype.toString;
+
+const math = Math;
+
 function newCard() {
 	const default_type = Object.keys(style_json.types)[0];
 	const type_json = style_json.types[default_type];
@@ -70,7 +128,7 @@ function parseStyle(style_name) {
 	parsePath(`templates/${style_name}.template/`);
 }
 
-async function parsePath(template_path) {
+async function parsePath(temp_path) {
 	// let style_json = "";
 	let template_style_text;
 	let template_script_text;
@@ -78,7 +136,7 @@ async function parsePath(template_path) {
 	const template_style = document.createElement('style');
 	const template_script = document.getElementById("template-script");
 	let fonts_style = document.getElementById("fonts-style");
-	temp_path = template_path;
+	template_path = temp_path;
 
 	await fetch(`${template_path}/style.json`)
 		.then(response => response.json())
@@ -109,7 +167,7 @@ async function parsePath(template_path) {
 	type_dropdown.id = "type-dropdown";
 	type_dropdown.onchange = function () {
 		set.cards[set.currentCardIndex].type = document.getElementById("type-dropdown").value;
-		renderCard(style_json, template_path);
+		renderCard();
 	}
 
 	const type_label = document.createElement("span");
@@ -160,7 +218,7 @@ async function parsePath(template_path) {
 	reload_card.innerText = "(Debug) Re-render card";
 	reload_card.className = "render-card";
 	reload_card.onclick = function () {
-		renderCard(style_json, template_path);
+		renderCard();
 	}
 
 	items_container.appendChild(type_label);
@@ -172,9 +230,9 @@ async function parsePath(template_path) {
 
 	set = { cards: [newCard()], options: {}, currentCardIndex: 0 };
 	makeSet();
-	loadCard(set.cards[0], template_path);
+	loadCard(set.cards[0]);
 
-	renderCard(style_json, template_path);
+	renderCard();
 }
 
 function attribize(str) {
@@ -198,7 +256,7 @@ function loadCard(card) {
 	renderCard(style_json, temp_path);
 }
 
-function renderCard(style_json, template_path) {
+function renderCard() {
 	// const type_dropdown = document.getElementById("type-dropdown");
 	// if (type_dropdown) {
 	// 	type_dropdown.value = current_card.type;
@@ -206,10 +264,10 @@ function renderCard(style_json, template_path) {
 
 	let card_type = document.getElementById("type-dropdown").value;
 
-	updateFields(style_json.types[card_type].fields, template_path, current_card);
+	updateFields(style_json.types[card_type].fields, current_card);
 }
 
-async function updateFields(fields, template_path, card = false) {
+async function updateFields(fields, card = false) {
 	document.getElementById('fields').innerHTML = '';
 	document.getElementById('card-fields').innerHTML = '';
 	let val = document.getElementById("type-dropdown").value;
@@ -224,13 +282,13 @@ async function updateFields(fields, template_path, card = false) {
 	for (const field_name of fields) {
 		let field = style_json.fields[field_name];
 		if (field.type == "infix") {
-			makeField(fields, field_name, style_json, template_path, type);
+			makeField(field_name, type);
 		}
 	}
 	for (const field_name of fields) {
 		let field = style_json.fields[field_name];
 		if (field.type != "infix") {
-			makeField(fields, field_name, style_json, template_path, type);
+			makeField(field_name, type);
 		}
 	}
 
@@ -295,7 +353,7 @@ function downloadURI(uri, name) {
 	delete link;
 }
 
-async function makeField(fields, field_name, style_json, template_path, type) {
+async function makeField(field_name, type) {
 	let field = style_json.fields[field_name];
 	let overrides = field.override;
 	if (overrides) {
@@ -334,7 +392,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			field_element.onchange = function () {
 				localStorage.setItem(field_name, document.getElementById(field_name).value);
 				current_card[field_name] = document.getElementById(field_name).value;
-				renderCard(style_json, template_path);
+				renderCard();
 			}
 			break;
 		case "card-text":
@@ -352,7 +410,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 				// document.getElementById("insert-menu").disabled = true;
 				localStorage.setItem(field_name, field_element.innerHTML);
 				current_card[field_name] = document.getElementById(field_name).innerHTML;
-				renderCard(style_json, template_path);
+				renderCard();
 			}
 			break;
 		case "card-sym":
@@ -375,7 +433,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 				field_element.addEventListener("blur", async function (event) {
 					// document.getElementById("insert-menu").disabled = true;
 					symbolFontModify(field_name, field_element, field, style_json, template_path);
-					renderCard(style_json, template_path);
+					renderCard();
 				});
 				field_element.style.color = "";
 				break;
@@ -409,7 +467,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			field_element.onchange = function () {
 				localStorage.setItem(field_name, document.getElementById(field_name).checked);
 				current_card[field_name] = document.getElementById(field_name).checked;
-				renderCard(style_json, template_path);
+				renderCard();
 			}
 			break;
 		case "input":
@@ -426,7 +484,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 			field_element.onchange = function () {
 				localStorage.setItem(field_name, document.getElementById(field_name).value);
 				current_card[field_name] = document.getElementById(field_name).value;
-				renderCard(style_json, template_path);
+				renderCard();
 			}
 
 			break;
@@ -483,7 +541,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 		const field_label = document.createElement('span');
 		const field_text = field.label === true ? field_name : field.label;
 		field_label.innerText = field_text + ": ";
-		document.getElementById('fields').appendChild(field_label);
+		document.getElementById(field.loc).appendChild(field_label);
 	}
 
 	field_element.className = filter(field.class, true);
@@ -511,6 +569,7 @@ async function makeField(fields, field_name, style_json, template_path, type) {
 		}
 	}
 	if (field.text) {
+		console.log(filter(field.text))
 		field_element.innerText = filter(field.text);
 	}
 	document.getElementById(field.loc).appendChild(field_element);
@@ -671,8 +730,6 @@ function filter(str, use_fields = true, lowercase = true) {
 		return "";
 	}
 
-	console.log("filtering", str);
-
 	let newstr = str.replaceAll("{type}", document.getElementById("type-dropdown").value);
 	let type = document.getElementById("type-dropdown").value;
 	let expr = "";
@@ -710,7 +767,7 @@ function filter(str, use_fields = true, lowercase = true) {
 				}
 			}
 
-			for (const field of style_json.types[type].fields) {
+			for (const field in style_json.fields) {
 				let val;
 				let field_element = document.getElementById(field);
 				if (field_element == null) {
@@ -737,50 +794,15 @@ function filter(str, use_fields = true, lowercase = true) {
 		}
 	}
 
-	console.log("res", newstr);
-
 	if (lowercase) {
 		return newstr.toLowerCase();
 	}
+
 	return newstr;
 }
 
-document.getElementById("file-menu").addEventListener("change", function () {
-	const option = document.getElementById("file-menu").value;
-
-	if (option.includes("export")) {
-		downloadImage(option.split("-")[1]);
-	} else if (option == "save-set") {
-		saveSet();
-	} else if (option == "open-set") {
-		openSet();
-	}
-
-	document.getElementById("file-menu").value = "default";
-});
-
-document.getElementById("cards-menu").addEventListener("change", function () {
-	const option = document.getElementById("cards-menu").value;
-
-	if (option == "new-card") {
-		set.cards.push(newCard());
-		set.currentCardIndex += 1;
-		loadCard(set.cards[set.currentCardIndex]);
-		makeSet();
-	}
-
-	document.getElementById("cards-menu").value = "default";
-});
-
-document.getElementById("add-btn").addEventListener("click", function () {
-	set.cards.push(newCard());
-	set.currentCardIndex += 1;
-	loadCard(set.cards[set.currentCardIndex]);
-	makeSet();
-});
-
 function saveSet() {
-	writeTextFile("set.json", JSON.stringify(set));
+	writeTextFile(localStorage.getItem(style_json.set.name_field) + ".json", JSON.stringify(set));
 }
 
 function writeTextFile(fn, text) {
@@ -822,8 +844,16 @@ function openSetHandler(event) {
 	reader.readAsText(selectedFile);
 }
 
+function openSetInfoModal() {
+	modal.style.display = "block";
+	document.getElementById("set-fields").innerHTML = "";
 
-function parseExpr(expr, style_json) {
+	for (const field_name of style_json.set.fields) {
+		makeField(field_name, document.getElementById("type-dropdown").value);
+	}
+}
+
+function parseExpr(expr) {
 	const tokens = expr.split(" ");
 	let tracker = [];
 	let info = {};
