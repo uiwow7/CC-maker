@@ -50,7 +50,7 @@
 		"act-pos-2": "454.5;35;65;338",
 		"act-pos-3": "470;35;51;338",
 		"Resource-pos": "!standard-pos",
-		"Permanent-Resource-pos": "!standard-pos",
+		"Permanent Resource-pos": "!standard-pos",
 		"Attachment-pos": "!standard-pos",
 		"Creature-pos": "<eval 520 - (15 * {textbox-lines}) end>;37;<eval 15 * {textbox-lines} end>;334",
 		"Planet-pos": "!standard-pos",
@@ -66,7 +66,7 @@
 		"Creature-art": "156;40;<eval 357 - 15 * {textbox-lines} end>;328",
 		"Resource-art": "!standard-art",
 		"standard-art": "81;41;325;327",
-		"Permanent-Resource-art": "!standard-art",
+		"Permanent Resource-art": "!standard-art",
 		"Attachment-art": "!standard-art",
 		"Planet-art": "!standard-art",
 		"Activator-art": "!standard-art",
@@ -89,7 +89,7 @@
 		"Sindian-backing": "#E0E49A",
 		"Teklar-backing": "#D7FFF7",
 		"Resource-backing": "#ECD9AF",
-		"Permanent-Resource-backing": "#ECD9AF",
+		"Permanent Resource-backing": "#ECD9AF",
 		"Attachment-backing": "#E7BBBC",
 		"Activator-backing": "#C1B2C7",
 		"Planet-backing": "#CACACA",
@@ -100,7 +100,7 @@
 		"type-bg": "!{type}-bg",
 		"Creature-bg": "#346792",
 		"Resource-bg": "#BA9425",
-		"Permanent-Resource-bg": "#BA9425",
+		"Permanent Resource-bg": "#BA9425",
 		"Attachment-bg": "#AE1915",
 		"Planet-bg": "#3E3838",
 		"Combiner-bg": "#2A6A45",
@@ -222,7 +222,7 @@
 			],
 			"url": "border.jpg"
 		},
-		"Permanent-Resource": {
+		"Permanent Resource": {
 			"fields": [
 				"name",
 				"name-backing",
@@ -588,7 +588,7 @@
 			"type": "card",
 			"view": "card-text",
 			"loc": "card-fields",
-			"position": "520;35;10;100",
+			"position": "520;38;20;356",
 			"text": "!type-text-content",
 			"font": {
 				"family": "!light",
@@ -596,7 +596,8 @@
 			},
 			"style": {
 				"letter-spacing": "-1px",
-				"color": "!bottom-font-color"
+				"color": "!bottom-font-color",
+				"text-align": "left"
 			}
 		},
 		"rarity": {
