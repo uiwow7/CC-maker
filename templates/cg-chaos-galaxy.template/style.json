@@ -52,6 +52,7 @@
 		"Resource-pos": "!standard-pos",
 		"Permanent Resource-pos": "!standard-pos",
 		"Attachment-pos": "!standard-pos",
+		"Moon-pos": "!standard-pos",
 		"Creature-pos": "<eval 520 - (15 * {textbox-lines}) end>;37;<eval 15 * {textbox-lines} end>;334",
 		"Planet-pos": "!standard-pos",
 		"Combiner-pos": "<eval 520 - (15 * {textbox-lines}) end>;37;<eval 15 * {textbox-lines} end>;334",
@@ -68,6 +69,7 @@
 		"standard-art": "81;41;325;327",
 		"Permanent Resource-art": "!standard-art",
 		"Attachment-art": "!standard-art",
+		"Moon-art": "!standard-art",
 		"Planet-art": "!standard-art",
 		"Activator-art": "!standard-art",
 		"star-left": "<if .stars = 10 then 25 else 35 end>",
@@ -92,6 +94,7 @@
 		"Permanent Resource-backing": "#ECD9AF",
 		"Attachment-backing": "#E7BBBC",
 		"Activator-backing": "#C1B2C7",
+		"Moon-backing": "#C1B2C7",
 		"Planet-backing": "#CACACA",
 		"name-backing-left": "38",
 		"name-backing-width": "333",
@@ -102,6 +105,7 @@
 		"Resource-bg": "#BA9425",
 		"Permanent Resource-bg": "#BA9425",
 		"Attachment-bg": "#AE1915",
+		"Moon-bg": "#AE1915",
 		"Planet-bg": "#3E3838",
 		"Combiner-bg": "#2A6A45",
 		"Activator-bg": "#543465",
@@ -109,7 +113,7 @@
 		"2-cond-pos": "420;34.5;30;377.7",
 		"3-cond-pos": "420;34.5;45;377.7",
 		"type-text-content": "<if .type = creature then {stars} else {type} end>",
-		"bottom-font-color": "<if activatorattachmentcombinerplanetcreature $ .type then white else black end>",
+		"bottom-font-color": "<if activatorattachmentmooncombinerplanetcreature $ .type then white else black end>",
 		"ridrare-h": "<eval hexToHsl(\"[ridrare-color]\")[0] end>",
 		"ridrare-s": "<eval hexToHsl(\"[ridrare-color]\")[1] end>",
 		"ridrare-v": "<eval hexToHsl(\"[ridrare-color]\")[2] end>"
@@ -198,8 +202,26 @@
 				"text",
 				"ridrare",
 				"ridrare-color",
-				"artist-credit",
-				"moon"
+				"artist-credit"
+			],
+			"url": "border.jpg"
+		},
+		"Moon": {
+			"fields": [
+				"name",
+				"name-backing",
+				"name-font-size",
+				"name-font-squish",
+				"border-color",
+				"border",
+				"type-text",
+				"rarity-text",
+				"set-text",
+				"rarity",
+				"text",
+				"ridrare",
+				"ridrare-color",
+				"artist-credit"
 			],
 			"url": "border.jpg"
 		},
